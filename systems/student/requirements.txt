@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+pydantic[email]
+python-dotenv
+pwdlib
+argon2-cffi
+pypinyin
+python-multipart
+imageio-ffmpeg
+faster-whisper

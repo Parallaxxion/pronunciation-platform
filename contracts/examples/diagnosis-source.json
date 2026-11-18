@@ -1,0 +1,44 @@
+{
+  "recording_id": "SAMPLE-RECORDING",
+  "status": "done",
+  "tokens": [
+    {
+      "c": "我",
+      "py": "wo3",
+      "err": {
+        "t": "tone",
+        "py": "wo2"
+      }
+    },
+    {
+      "c": "学",
+      "py": "xue2"
+    },
+    {
+      "c": "汉",
+      "py": "han4",
+      "err": {
+        "t": "sf",
+        "py": "kan4"
+      }
+    },
+    {
+      "c": "语",
+      "py": "yu3",
+      "err": {
+        "t": "del"
+      }
+    }
+  ],
+  "gap_errors": {
+    "0": {
+      "t": "ins",
+      "py": "a5"
+    },
+    "4": {
+      "t": "ins",
+      "py": "ma5"
+    }
+  },
+  "model_version": "constructed-fixture"
+}

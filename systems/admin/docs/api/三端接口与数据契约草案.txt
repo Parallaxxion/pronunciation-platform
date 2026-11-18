@@ -1,0 +1,72 @@
+三端接口与数据契约草案 v0.1
+讨论状态，2026年11月16日
+
+一、统一标识和语义
+speaker_id 为不可变匿名编号。录音导出不使用真实姓名。
+question_id 标识题目，question_version标识题目版本，录音保留提交时文本与拼音快照。
+recording_id 为每次录音的唯一编号，speaker_id、question_id与attempt可作为附加唯一约束。
+attempt 是录音序号，重录产生新编号和新序号，重试上传保持同一recording_id。
+recorded_at 采用带时区ISO 8601，存储建议UTC，页面显示本地时间。
+device保存浏览器、操作系统等必要设备信息。
+version 为修改版本，用于拒绝过期更新，发生冲突返回409。
+
+二、逐字拼音和标注
+建议题目同时保存display_text与tokens。tokens是需要发音的字序列，标点保留在display_text，以display_start记录字在原文的Unicode码点位置。
+char_index从0开始，引用tokens中的索引。前端通过Array.from按码点处理，不直接依赖UTF-16长度。
+boundary_index=k表示tokens[k]之前。0表示句首，tokens.length表示句尾，中间值表示字间增读。
+同一字允许多条偏误，例如声韵母和声调同时偏误。
+type枚举 tone、substitution、omission、insertion。
+expected与actual使用双方约定的带调拼音，漏读actual可为null，增读expected可为null。
+多音字、轻声、变调以及ü和v的表示需另行确认。
+诊断status至少区分pending、processing、completed、failed。只有completed且errors=[]才代表模型未检出偏误。
+model_version保存模型/规则版本。可选start_ms和end_ms仅在算法真实提供时使用。
+
+三、建议上游接口 尚未对接
+命题端 GET /api/v1/questions?page=1&page_size=50&level=1
+命题端 GET /api/v1/questions/{question_id}?version=1
+学生端 GET /api/v1/speakers?page=1&page_size=50
+学生端 GET /api/v1/recordings?speaker_id=...&question_id=...&level=...
+学生端 GET /api/v1/recordings/{recording_id}
+学生端 GET /api/v1/recordings/{recording_id}/diagnosis
+学生端 GET /api/v1/recordings/{recording_id}/audio?variant=wav
+音频接口返回授权后的文件响应或短期有效URL。存储路径不直接交给前端拼接。
+分页返回items、page、page_size、total。数据刷新优先采用分页轮询，后续按真实需要增加增量游标。
+双方确认认证方式、基础URL、跨域、错误结构、时间字段、超时与重试约定。
+
+四、建议管理端接口 尚未全部实现
+GET /api/v1/admin/stats
+GET /api/v1/admin/recordings
+PATCH /api/v1/admin/recordings/{id}，请求携带version。
+DELETE /api/v1/admin/recordings/{id}，软删除并记录操作。
+POST /api/v1/admin/operations/{id}/undo，版本匹配后撤销。
+用户、题目对应增删改查请求由所属服务受理。有关联录音的题目修改应创建版本，删除应采用逻辑删除并保留溯源。
+POST /api/v1/admin/exports，生成导出任务。
+GET /api/v1/admin/exports/{id}，返回pending/running/completed/failed。
+GET /api/v1/admin/exports/{id}/download，仅授权用户可下载。
+批量导出需采用一致的数据快照，任务记录筛选条件、样本ID、校验信息与失败原因。
+
+五、当前本地原型实际接口
+GET /api/state 返回演示数据和统计所需数据。
+POST /api/recordings/update 支持note、delete、restore，参数包含id、version、kind，note时另带note。
+POST /api/undo 参数action_id。
+GET /api/export 下载未删除样本ZIP。
+本地接口与上述v1对接草案之间存在有意的简化。正式联调时按确认的契约改造。
+
+六、导出结构
+manifest.jsonl，每行一条录音，含匿名编号、题号、录音序号、时间、设备、等级、题文、逐字拼音、音频路径。
+annotations.jsonl，每行一个录音的诊断结果，recording_id与manifest关联。
+audio/ 存放统一WAV。
+original/ 存放原始文件。
+speakers.json 保存匿名背景信息。
+schema.json 包含数据结构版本与导出时间。
+README.txt 解释编码、索引与数据来源。
+建议生产版增加SHA-256校验、题目版本、原始音频规格、授权信息与导出任务编号。
+
+七、对接验收
+收到两端提供的一条真实题目和一条授权测试录音。
+确认题文、tokens、拼音数量和顺序一致。
+四类偏误位置可重建，首尾增读不丢失。
+同一录音重试不会重复入库，新一轮重录保留新样本。
+诊断失败与无偏误区分显示，失效音频URL能够刷新或明确报错。
+按同一统计口径核对总量和缺口。
+导出全部关联文件，脚本逐条验证文件存在、WAV可读与ID对应。

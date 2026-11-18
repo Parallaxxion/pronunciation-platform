@@ -1,0 +1,12 @@
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.*
+!.env.example
+*.db
+*.sqlite3
+.integration-private/
+local-data/
+node_modules/

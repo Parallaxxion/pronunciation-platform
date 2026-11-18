@@ -1,0 +1,7 @@
+case_id,category,recording_id,question_id,char_index,boundary_index,expected_pinyin,actual_pinyin,authorized_audio_location,reviewer,review_status
+CASE-01,correct,,,,,,,,,not_recorded
+CASE-02,substitution,,,,,,,,,not_recorded
+CASE-03,tone,,,,,,,,,not_recorded
+CASE-04,omission,,,,,,,,,not_recorded
+CASE-05,insertion_start,,,,,,,,,not_recorded
+CASE-06,insertion_end,,,,,,,,,not_recorded

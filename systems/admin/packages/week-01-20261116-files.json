@@ -1,0 +1,176 @@
+{
+  "stage": "week-01",
+  "date": "2026-11-16",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 214,
+      "sha256": "5475458c6b66e3fabb1d7c6eb07e3366d2efec682fa609133d9bac2ba7cf67bb"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 221,
+      "sha256": "ca454845d1ec57728b1a24487fdc4cdde56712df07661c07f5bf721774fdb406"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "bytes": 2555,
+      "sha256": "575d58c1d863a6f29b2a16a0a7c20e5638b58c054f40b070208a555ac8e54636"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6359,
+      "sha256": "a3e5d96ae58c85bf88141bc9c60ef36b436c2a7a970a62af2585bdad7df78be6"
+    },
+    {
+      "path": "docs/api/三端接口与数据契约草案.txt",
+      "bytes": 4701,
+      "sha256": "13db4550d223470d4fe87f528858d7d517906e8b26f7f902d3b5808fce9fd6db"
+    },
+    {
+      "path": "docs/api/接口样例_讨论稿.json",
+      "bytes": 1624,
+      "sha256": "eea0afdea5fd8a9a4946fb615762d0332f83e06677dce729a3a6e6ff5c723dba"
+    },
+    {
+      "path": "docs/references/README.md",
+      "bytes": 1958,
+      "sha256": "f5ef3ef55dbe6f95f017ee4c871e7b4b7c3cab74ba3a51092ff100a22f3ab9b1"
+    },
+    {
+      "path": "docs/references/任务书-音频数据采集系统-V6.4.docx",
+      "bytes": 14218,
+      "sha256": "83071567354d6bed8b868219b418b6c85cba4c5e355cb140fcf1e79962152c13"
+    },
+    {
+      "path": "docs/requirements/第一阶段任务梳理_20261109.txt",
+      "bytes": 13865,
+      "sha256": "f5288694f487155c22e9a614d1da83094d3b17510646b046594a5d55f6296ad9"
+    },
+    {
+      "path": "docs/requirements/管理端需求与实施方案.txt",
+      "bytes": 7735,
+      "sha256": "e88ea33d888350b07a7039ae738f0322eb70a5c838ef8d70e8ce674a2f2e1e86"
+    },
+    {
+      "path": "docs/team/分工与验收清单.txt",
+      "bytes": 12476,
+      "sha256": "1e88df2229571f82684fbe4c19ae7b41951e97000def58aa716cc580103a603f"
+    },
+    {
+      "path": "docs/team/待协调事项.md",
+      "bytes": 2002,
+      "sha256": "69d27bc160aa4ee47340ec90c5f274f922afbbbb078edcd9ff4ff9fd68213095"
+    },
+    {
+      "path": "docs/team/接手指南.md",
+      "bytes": 3599,
+      "sha256": "8fd7ec1077136aa12595000eba8c60e11d3e131434d66e3d2734cfec5804e933"
+    },
+    {
+      "path": "evidence/README.md",
+      "bytes": 1351,
+      "sha256": "e68bcd5b5150172eaa21cc66bc5d5dd71ff423572e342f30b73d96f98294dc6b"
+    },
+    {
+      "path": "evidence/偏误详情_页面.png",
+      "bytes": 530095,
+      "sha256": "d6daffa558899a600652094a6b83b3ac077312b8c4ba0ea820b008847c93cbd7"
+    },
+    {
+      "path": "evidence/录音列表_页面.png",
+      "bytes": 622730,
+      "sha256": "066d0929aa87996558df27be8b9c48affb1a09d3fb681cef8e32daa2fbb8452f"
+    },
+    {
+      "path": "evidence/打包复测记录.txt",
+      "bytes": 803,
+      "sha256": "a39db38dae6fa83aa5cc66d48e654220ecc5bf6357abc35300c104712d984d11"
+    },
+    {
+      "path": "evidence/演示导出包.zip",
+      "bytes": 522595,
+      "sha256": "9ccc6b50622e45f900f1004b4adc7d35be22210bd11a090646907af6369ea79a"
+    },
+    {
+      "path": "evidence/验证记录.txt",
+      "bytes": 913,
+      "sha256": "8ee10a194a1170208d18b859eddc03963466a6ca0ebd68d39c28ec475bed9c01"
+    },
+    {
+      "path": "packages/README.md",
+      "bytes": 1010,
+      "sha256": "7d0b9c8640a67efc64d68ac254a66e59cd85e14391a5293e6da6b80b8e56b783"
+    },
+    {
+      "path": "prototype/server.py",
+      "bytes": 11464,
+      "sha256": "3ee9523d2ea5caec5f13e9ee6d48cede5fb2edc5f2bc6625a3dd0d6ae97ba83f"
+    },
+    {
+      "path": "prototype/static/app.js",
+      "bytes": 9692,
+      "sha256": "e0483835675aabd08c6fca071cd8c0cac14cfcafc628c39e38df71f0602192c3"
+    },
+    {
+      "path": "prototype/static/audio/Q-001.wav",
+      "bytes": 64034,
+      "sha256": "4a919badda73acd39181d830cb754bc91efed906a91eea317f61129606bdb312"
+    },
+    {
+      "path": "prototype/static/audio/Q-002.wav",
+      "bytes": 63704,
+      "sha256": "4e5b0bb1eda418aabed7b396031fc895f6ce0d038a0d0a0522fc16ca753cb235"
+    },
+    {
+      "path": "prototype/static/audio/Q-003.wav",
+      "bytes": 64820,
+      "sha256": "40a968a1121a1494fbe26a8acde1876788a3b6812d8ff8313cfa66b896e70eef"
+    },
+    {
+      "path": "prototype/static/audio/Q-004.wav",
+      "bytes": 77224,
+      "sha256": "314c04c4f8ff7e0c4014d05981f3939274d27a828778f81755bd96f391456021"
+    },
+    {
+      "path": "prototype/static/index.html",
+      "bytes": 1248,
+      "sha256": "6c483dce5e791d0ded61a3e85e5c88096eb5f10255650a350c052cbb3e2c2fac"
+    },
+    {
+      "path": "prototype/static/style.css",
+      "bytes": 4585,
+      "sha256": "06b822e0980425e190e880f71d34fcc45451ec38e2e6872b3201e16daa1dd9df"
+    },
+    {
+      "path": "prototype/verify.py",
+      "bytes": 4571,
+      "sha256": "ab1c75cb1cd2a2d178390ca31fd20cd900773c2a09890350b64136a627f0e2ba"
+    },
+    {
+      "path": "prototype/启动演示.command",
+      "bytes": 65,
+      "sha256": "040ceddc3c6fc737deebe72d2fd060d479709c821946ff174716705d5c9383a3"
+    },
+    {
+      "path": "reports/week-01/README.md",
+      "bytes": 3411,
+      "sha256": "02e7a483ad3f760453e20e3d5e82f480bc8b042d0086017f1a291eacdfdf2251"
+    },
+    {
+      "path": "reports/week-01/汇报讲稿与演示步骤.txt",
+      "bytes": 16473,
+      "sha256": "c6e86973d4dd79b96473334db6869a9f4f0d1bce6ea817922953084035403ae2"
+    },
+    {
+      "path": "reports/week-01/管理端第一阶段进展汇报_20261116.pptx",
+      "bytes": 1185144,
+      "sha256": "8fcc1c6a50ec0f31ac4fc630a394fbae402ad3939880b471a5adeb96aac1eac1"
+    },
+    {
+      "path": "scripts/package_week01.py",
+      "bytes": 2722,
+      "sha256": "581642cea66e791e08dc25d9a0d6d640d35f5346943a49d03d9a78f8fdd8c28b"
+    }
+  ]
+}

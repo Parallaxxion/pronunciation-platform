@@ -1,0 +1,8 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>三端共用界面预览</title><link rel="stylesheet" href="style.css"></head><body>
+<aside><div class="brand"><span>声</span>语音采集平台</div><div class="caption">中文发音诊断与评价系统</div><nav><button class="active" type="button">共享组件预览</button></nav><div class="aside-bottom">第一阶段 · 三组协作<br>沿用管理端第一周视觉风格</div></aside>
+<main><header><div><div class="eyebrow">三端整合 / 共享界面基准</div><h1>统一界面与偏误组件</h1></div></header>
+<div class="notice">组件预览 · 题目与诊断为构造样例。学生本期不展示诊断，以下组件用于管理核查。</div>
+<div id="metrics"><div class="metric"><div class="label">共同视觉基准</div><strong>01</strong><div class="muted">原UI三文件完整保留</div></div><div class="metric"><div class="label">业务子系统</div><strong>03</strong><div class="muted">学生、命题、管理</div></div><div class="metric"><div class="label">偏误类型</div><strong>04</strong><div class="muted">声韵母、声调、漏读、增读</div></div><div class="metric"><div class="label">下一步</div><strong>联调</strong><div class="muted">统一接口后接入真实服务</div></div></div>
+<section class="panel pad"><h2>题文与偏误位置</h2><p id="questionText"></p><div id="diagnosis" class="phonetics"></div><p class="legend">橙色 声调偏误　红色 声韵母误读　蓝色 漏读　紫色 增读<br>标点保留在题文中，偏误引用发音tokens；句首与句尾增读单独展示。</p><p id="status" role="status" class="muted">正在读取组件样例…</p></section>
+<section class="panel pad" style="margin-top:20px"><h2>三组页面如何接入</h2><table><thead><tr><th>页面</th><th>公共部分</th><th>各组补充</th></tr></thead><tbody><tr><td>学生采集</td><td>侧栏、表单、按钮和提示</td><td>注册、抽题、录音与上传</td></tr><tr><td>命题工作台</td><td>卡片、表格、筛选与弹窗</td><td>出题、校验、统计、补题与发布</td></tr><tr><td>管理核查</td><td>偏误组件、列表和详情</td><td>真实数据、权限、撤销、统计与导出</td></tr></tbody></table></section>
+</main><script src="preview.js"></script></body></html>

@@ -1,0 +1,84 @@
+{
+  "schema_version": "0.1-draft",
+  "data_source": "synthetic_fixture",
+  "recording_id": "R-001",
+  "speaker_id": "S-001",
+  "question_id": "Q-001",
+  "question_version": 1,
+  "attempt": 1,
+  "recorded_at": "2026-11-16T01:00:00+00:00",
+  "device": {
+    "browser": "demo",
+    "os": "demo"
+  },
+  "question": {
+    "display_text": "我喜欢学习汉语",
+    "tokens": [
+      {
+        "char": "我",
+        "pinyin": "wǒ",
+        "display_start": 0
+      },
+      {
+        "char": "喜",
+        "pinyin": "xǐ",
+        "display_start": 1
+      },
+      {
+        "char": "欢",
+        "pinyin": "huān",
+        "display_start": 2
+      },
+      {
+        "char": "学",
+        "pinyin": "xué",
+        "display_start": 3
+      },
+      {
+        "char": "习",
+        "pinyin": "xí",
+        "display_start": 4
+      },
+      {
+        "char": "汉",
+        "pinyin": "hàn",
+        "display_start": 5
+      },
+      {
+        "char": "语",
+        "pinyin": "yǔ",
+        "display_start": 6
+      }
+    ]
+  },
+  "diagnosis": {
+    "status": "completed",
+    "model_version": "fixture-v1",
+    "errors": [
+      {
+        "type": "tone",
+        "char_index": 0,
+        "expected": "wǒ",
+        "actual": "wó"
+      },
+      {
+        "type": "substitution",
+        "char_index": 5,
+        "expected": "hàn",
+        "actual": "kàn"
+      },
+      {
+        "type": "omission",
+        "char_index": 4,
+        "expected": "xí",
+        "actual": null
+      },
+      {
+        "type": "insertion",
+        "boundary_index": 3,
+        "expected": null,
+        "actual": "a"
+      }
+    ]
+  }
+}
