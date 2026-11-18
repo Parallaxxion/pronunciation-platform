@@ -4,7 +4,7 @@
 
 欢迎来到三组协作总仓库。这里集中保存学生端、命题端、管理端的代码、阶段成果、公共接口和项目材料。**全体成员先阅读本页，再进入自己小组的“当前开发”。** 三组内容均为本仓库内的普通文件，下载一次即可取得全部成果。
 
-**日常协作入口：[飞书协作手册](https://bnu-3dv-lab.feishu.cn/docx/ZkHQdpO3mooWRux7gbecZ04Vnyg) · [需求与联调台账](https://bnu-3dv-lab.feishu.cn/base/Hafcb3RXbaJaBCsfwMwcMoNknwf?table=tblQ20YQpekTni6m&view=vewaJVRbC3)。** 两份内容均已开放链接阅读与编辑，无需申请；具体操作见[下方使用说明](#collaboration)。
+**日常协作入口：[飞书协作手册](https://my.feishu.cn/docx/J9xJdbE3ZohuRuxERgocfeiHnyf) · [每周需求与验收表](https://my.feishu.cn/base/JPKebuYsMaQbfvs0tBCc9XjQnlb?table=tblh33ockneoj68w&view=vewaJVRbC3)。** 两份内容由闫晓奕的个人账号维护，均已开放链接阅读与编辑，无需申请；具体操作见[下方使用说明](#collaboration)。
 
 ## 项目简介
 
@@ -69,7 +69,7 @@ pronunciation-platform/
 - **真实三端端到端联调尚未完成**。跨用户管理员查询、音频授权读取、题目版本和统计回写仍待三组共同接入。
 - 算法样例用于格式检查，`gold_errors=null`，不作为检测准确率证据。真实采集目标、正式技术资源与最终截止时间仍待老师或师兄确认。
 
-第二周的 14 项初始对接需求已录入[飞书每周需求与验收表](https://bnu-3dv-lab.feishu.cn/base/Hafcb3RXbaJaBCsfwMwcMoNknwf?table=tblQ20YQpekTni6m&view=vewaJVRbC3)的第2周分表，后续答复与验收在该周更新。
+第二周的 14 项初始对接需求已录入[飞书每周需求与验收表](https://my.feishu.cn/base/JPKebuYsMaQbfvs0tBCc9XjQnlb?table=tblh33ockneoj68w&view=vewaJVRbC3)的第2周分表，后续答复与验收在该周更新。
 
 ## 全体成员使用说明
 
@@ -158,8 +158,8 @@ git push -u origin feat/student-question-integration
 
 | 入口 | 用途 |
 |---|---|
-| [三组协作手册](https://bnu-3dv-lab.feishu.cn/docx/ZkHQdpO3mooWRux7gbecZ04Vnyg) | 周表填写方法、三组职责、主要交接链、会议记录与每周归档说明 |
-| [每周需求与验收台账](https://bnu-3dv-lab.feishu.cn/base/Hafcb3RXbaJaBCsfwMwcMoNknwf?table=tblQ20YQpekTni6m&view=vewaJVRbC3) | 点击左侧周次，只查看和填写这一周的需求 |
+| [三组协作手册](https://my.feishu.cn/docx/J9xJdbE3ZohuRuxERgocfeiHnyf) | 周表填写方法、三组职责、主要交接链、会议记录与每周归档说明 |
+| [每周需求与验收台账](https://my.feishu.cn/base/JPKebuYsMaQbfvs0tBCc9XjQnlb?table=tblh33ockneoj68w&view=vewaJVRbC3) | 点击左侧周次，只查看和填写这一周的需求 |
 
 **两份内容均已开放链接阅读、编辑，无需申请权限。** 如飞书提示登录，使用自己的账号登录即可。本周打开「第2周（11.16—11.22）」。每周是一张独立分表，旧周保留，不把所有周次放进同一张长表。
 
@@ -194,7 +194,7 @@ git push -u origin feat/student-question-integration
 - 周末归档前先去掉运行数据库、真实录音、密钥、虚拟环境和缓存；归档后保留原文件，补充说明另写文件。
 - 管理组第一周汇报日期为 **11 月 16 日**，汇报材料仍归入第一周成果。学生端和命题端当前取得的是 **11 月 18 日版本**，归入第二周；第一周目录已注明尚无独立周末版本，未把后来成果倒填为第一周完成。
 
-每周 README 模板见[飞书协作手册](https://bnu-3dv-lab.feishu.cn/docx/ZkHQdpO3mooWRux7gbecZ04Vnyg)第八节。初始快照的来源与哈希见[来源与核验](05_相关材料/来源与核验/)。
+每周 README 模板见[飞书协作手册](https://my.feishu.cn/docx/J9xJdbE3ZohuRuxERgocfeiHnyf)第八节。初始快照的来源与哈希见[来源与核验](05_相关材料/来源与核验/)。
 
 ### 7. 提交前检查
 
