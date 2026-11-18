@@ -10,3 +10,6 @@ __pycache__/
 .integration-private/
 local-data/
 node_modules/
+
+# Runtime verification outputs; archive selected reports under the weekly folder.
+03_管理端/当前开发/evidence/

@@ -1,0 +1,623 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>学生跟读练习</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f6fc;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            padding: 35px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px #00000010;
+        }
+
+        h1 {
+            color: #244a85;
+        }
+
+        .user-info {
+            margin: 15px 0;
+            color: #637388;
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        button {
+            padding: 12px 22px;
+            background: #3678ce;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+        }
+
+        .logout {
+            background: #e9eef6;
+            color: #345274;
+            margin-top: 10px;
+        }
+
+        select {
+            padding: 10px;
+            margin: 15px;
+            border-radius: 7px;
+            border: 1px solid #ccc;
+        }
+
+        .question-box {
+            margin-top: 30px;
+            padding: 30px 15px;
+            background: #f6f9ff;
+            border-radius: 10px;
+        }
+
+        #questionId {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .sentence {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px 6px;
+            margin-top: 25px;
+        }
+
+        .character {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .reading {
+            font-size: 17px;
+            color: #637388;
+            min-height: 24px;
+        }
+
+        .han {
+            font-size: 34px;
+            color: #222;
+            line-height: 1.5;
+        }
+
+        #status {
+            margin-top: 20px;
+            color: #555;
+        }
+
+        .recorder {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px dashed #d9e3f0;
+        }
+
+        .recorder button {
+            margin: 0 4px;
+        }
+
+        .recording {
+            background: #c0392b;
+        }
+
+        #preview {
+            width: 100%;
+            margin-top: 14px;
+        }
+
+        #recordStatus {
+            min-height: 22px;
+            margin-top: 12px;
+            color: #555;
+            font-size: 13px;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container" id="main" hidden>
+
+    <h1>中文发音采集系统</h1>
+
+    <h3>学生跟读练习</h3>
+
+    <!-- 登录学生的信息 -->
+    <p id="userInfo" class="user-info"></p>
+
+    <button class="logout" onclick="logout()">
+        退出登录
+    </button>
+
+    <hr style="margin:25px 0;border:1px solid #eee">
+
+    <p>请选择你的汉语水平等级</p>
+
+    <select id="level">
+        <option value="1">一级</option>
+    </select>
+
+    <br>
+
+    <button id="nextBtn" onclick="loadQuestion()">
+        抽取一道题目
+    </button>
+
+    <p id="status"></p>
+
+    <div id="questionBox"
+         class="question-box"
+         hidden>
+
+        <p id="questionId"></p>
+
+        <div id="sentence"
+             class="sentence"></div>
+
+        <div class="recorder">
+            <button id="recordBtn" onclick="toggleRecording()">
+                开始录音
+            </button>
+            <button id="uploadBtn" onclick="uploadRecording()" disabled>
+                上传
+            </button>
+            <audio id="preview" controls hidden></audio>
+            <p id="recordStatus"></p>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    let currentSessionId = null;
+    let mediaRecorder = null;
+    let recordedChunks = [];
+    let recordedBlob = null;
+    let recordStartedAt = 0;
+
+    // =================================
+    // 1. 检查学生是否已经登录
+    // =================================
+
+    async function checkLogin() {
+
+        try {
+
+            const response = await fetch(
+                "/api/auth/me",
+                { credentials: "same-origin" }
+            );
+
+            if (!response.ok) {
+                window.location.replace(
+                    "/static/auth.html"
+                );
+                return;
+            }
+
+            const user = await response.json();
+
+            // 显示匿名编号
+            document.getElementById(
+                "userInfo"
+            ).textContent =
+                "当前学生匿名编号：" + user.anonymous_id;
+
+            // 身份确认后才显示练习界面
+            document.getElementById(
+                "main"
+            ).hidden = false;
+
+        } catch (error) {
+
+            window.location.replace(
+                "/static/auth.html"
+            );
+        }
+    }
+
+
+    // =================================
+    // 2. 获取题目
+    // =================================
+
+    async function loadQuestion() {
+
+        const level =
+            document.getElementById("level").value;
+
+        const button =
+            document.getElementById("nextBtn");
+
+        const status =
+            document.getElementById("status");
+
+        const questionBox =
+            document.getElementById("questionBox");
+
+        const sentence =
+            document.getElementById("sentence");
+
+        if (
+            mediaRecorder &&
+            mediaRecorder.state === "recording"
+        ) {
+            status.textContent = "请先停止录音";
+            return;
+        }
+
+        button.disabled = true;
+
+        status.textContent = "正在获取题目...";
+
+        questionBox.hidden = true;
+
+        try {
+
+            const response = await fetch(
+                "/api/questions/next?level=" + level,
+                { credentials: "same-origin", cache: "no-store" }
+            );
+
+            if (response.status === 401) {
+                window.location.replace(
+                    "/static/auth.html"
+                );
+                return;
+            }
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    data.detail || "题目获取失败"
+                );
+            }
+
+            if (
+                !Array.isArray(data.tokens) ||
+                data.tokens.length === 0
+            ) {
+                throw new Error(
+                    "这道题没有逐字拼音数据"
+                );
+            }
+
+            document.getElementById(
+                "questionId"
+            ).textContent = "题号：" + data.id;
+
+            sentence.replaceChildren();
+
+            // 逐字显示
+            for (const token of data.tokens) {
+
+                const character =
+                    document.createElement("span");
+
+                character.className = "character";
+
+                const reading =
+                    document.createElement("span");
+
+                reading.className = "reading";
+                reading.textContent = token.display;
+
+                const han =
+                    document.createElement("span");
+
+                han.className = "han";
+
+                han.textContent =
+                    token.c + (token.after || "");
+
+                character.appendChild(reading);
+                character.appendChild(han);
+
+                sentence.appendChild(character);
+            }
+
+            questionBox.hidden = false;
+
+            currentSessionId = data.practice_session_id;
+            resetRecorder();
+
+            status.textContent = "题目加载成功";
+
+        } catch (error) {
+
+            status.textContent =
+                "获取失败：" + error.message;
+
+        } finally {
+
+            button.disabled = false;
+        }
+    }
+
+
+    // =================================
+    // 3. 录音与上传
+    // =================================
+
+    function resetRecorder() {
+
+        recordedChunks = [];
+        recordedBlob = null;
+
+        const preview =
+            document.getElementById("preview");
+
+        preview.hidden = true;
+        preview.removeAttribute("src");
+
+        document.getElementById(
+            "uploadBtn"
+        ).disabled = true;
+
+        const recordBtn =
+            document.getElementById("recordBtn");
+
+        recordBtn.textContent = "开始录音";
+        recordBtn.classList.remove("recording");
+
+        document.getElementById(
+            "recordStatus"
+        ).textContent = "";
+    }
+
+
+    async function toggleRecording() {
+
+        const recordBtn =
+            document.getElementById("recordBtn");
+
+        const recordStatus =
+            document.getElementById("recordStatus");
+
+        if (
+            mediaRecorder &&
+            mediaRecorder.state === "recording"
+        ) {
+            mediaRecorder.stop();
+            return;
+        }
+
+        if (!currentSessionId) {
+            recordStatus.textContent = "请先抽一道题";
+            return;
+        }
+
+        try {
+
+            const stream =
+                await navigator.mediaDevices.getUserMedia({
+                    audio: {
+                        channelCount: 1,
+                        echoCancellation: false,
+                        noiseSuppression: false,
+                        autoGainControl: false
+                    }
+                });
+
+            const mime =
+                MediaRecorder.isTypeSupported(
+                    "audio/webm;codecs=opus"
+                )
+                    ? "audio/webm;codecs=opus"
+                    : (
+                        MediaRecorder.isTypeSupported("audio/mp4")
+                            ? "audio/mp4"
+                            : ""
+                    );
+
+            mediaRecorder = new MediaRecorder(
+                stream,
+                mime ? { mimeType: mime } : undefined
+            );
+
+            recordedChunks = [];
+            recordStartedAt = Date.now();
+
+            mediaRecorder.ondataavailable = event => {
+                if (event.data.size > 0) {
+                    recordedChunks.push(event.data);
+                }
+            };
+
+            mediaRecorder.onstop = () => {
+
+                recordedBlob = new Blob(
+                    recordedChunks,
+                    { type: mediaRecorder.mimeType }
+                );
+
+                const preview =
+                    document.getElementById("preview");
+
+                preview.src =
+                    URL.createObjectURL(recordedBlob);
+                preview.hidden = false;
+
+                document.getElementById(
+                    "uploadBtn"
+                ).disabled = false;
+
+                recordBtn.textContent = "重新录音";
+                recordBtn.classList.remove("recording");
+                recordStatus.textContent =
+                    "录好了，可以试听或上传";
+
+                stream.getTracks().forEach(
+                    track => track.stop()
+                );
+            };
+
+            mediaRecorder.start();
+
+            recordBtn.textContent = "停止录音";
+            recordBtn.classList.add("recording");
+            recordStatus.textContent = "录音中……";
+
+        } catch (error) {
+
+            recordStatus.textContent =
+                "无法录音：" + error.message;
+        }
+    }
+
+
+    async function uploadRecording() {
+
+        if (!recordedBlob || !currentSessionId) {
+            return;
+        }
+
+        const uploadBtn =
+            document.getElementById("uploadBtn");
+
+        const recordStatus =
+            document.getElementById("recordStatus");
+
+        uploadBtn.disabled = true;
+
+        const form = new FormData();
+
+        form.append("audio", recordedBlob, "take.webm");
+        form.append("practice_session_id", currentSessionId);
+        form.append(
+            "client_recording_id",
+            crypto.randomUUID
+                ? crypto.randomUUID()
+                : String(Date.now())
+        );
+        form.append(
+            "recorded_at",
+            new Date().toISOString()
+        );
+        form.append(
+            "duration_ms",
+            String(Date.now() - recordStartedAt)
+        );
+        form.append(
+            "device_info",
+            JSON.stringify({ ua: navigator.userAgent })
+        );
+
+        try {
+
+            recordStatus.textContent = "上传中……";
+
+            const response = await fetch(
+                "/api/recordings",
+                {
+                    method: "POST",
+                    body: form,
+                    credentials: "same-origin"
+                }
+            );
+
+            if (response.status === 401) {
+                window.location.replace(
+                    "/static/auth.html"
+                );
+                return;
+            }
+
+            const data = await response.json()
+                .catch(() => ({}));
+
+            if (!response.ok) {
+                throw new Error(
+                    data.detail || "上传失败"
+                );
+            }
+
+            recordStatus.textContent =
+                "上传成功，录音编号 " + data.recording_id +
+                "，第 " + data.take_no + " 次，时长 " +
+                data.duration_ms + " ms";
+
+        } catch (error) {
+
+            recordStatus.textContent =
+                "上传失败：" + error.message;
+
+            uploadBtn.disabled = false;
+        }
+    }
+
+
+    // =================================
+    // 4. 退出登录
+    // =================================
+
+    async function logout() {
+
+        try {
+
+            const response = await fetch(
+                "/api/auth/logout",
+                {
+                    method: "POST",
+                    credentials: "same-origin"
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("退出失败");
+            }
+
+            window.location.replace(
+                "/static/auth.html"
+            );
+
+        } catch (error) {
+
+            document.getElementById(
+                "status"
+            ).textContent = error.message;
+        }
+    }
+
+
+    // 页面打开时立即检查登录状态
+    checkLogin();
+
+</script>
+
+</body>
+</html>

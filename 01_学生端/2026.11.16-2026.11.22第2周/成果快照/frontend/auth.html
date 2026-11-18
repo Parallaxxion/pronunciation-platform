@@ -1,0 +1,476 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>学生注册与登录</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 35px 15px;
+            font-family: Arial, sans-serif;
+            background: #f3f6fc;
+        }
+
+        .card {
+            max-width: 450px;
+            margin: auto;
+            padding: 32px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px #00000012;
+        }
+
+        h1 {
+            color: #244a85;
+            text-align: center;
+            font-size: 26px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-top: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 11px;
+            font-size: 15px;
+            border: 1px solid #ccd5e3;
+            border-radius: 7px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: #3678ce;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+        }
+
+        .switch {
+            background: #eef3fb;
+            color: #245da8;
+        }
+
+        .agreement {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-top: 18px;
+        }
+
+        .agreement input {
+            width: auto;
+            margin-top: 4px;
+        }
+
+        .agreement label {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        #message {
+            margin-top: 20px;
+            color: #245da8;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1>中文发音采集系统</h1>
+
+    <p style="text-align:center">
+        Student Registration & Login
+    </p>
+
+    <!-- 登录表单 -->
+    <div id="loginArea">
+
+        <h2>学生登录</h2>
+
+        <form id="loginForm">
+
+            <label for="loginEmail">邮箱</label>
+            <input
+                type="email"
+                id="loginEmail"
+                required
+            >
+
+            <label for="loginPassword">密码</label>
+            <input
+                type="password"
+                id="loginPassword"
+                required
+            >
+
+            <button type="submit">
+                登录
+            </button>
+
+        </form>
+
+        <button
+            type="button"
+            class="switch"
+            onclick="showRegister(true)"
+        >
+            没有账号？前往注册
+        </button>
+
+    </div>
+
+
+    <!-- 注册表单 -->
+    <div id="registerArea" hidden>
+
+        <h2>学生注册</h2>
+
+        <form id="registerForm">
+
+            <label for="regEmail">邮箱</label>
+            <input
+                type="email"
+                id="regEmail"
+                required
+            >
+
+            <label for="regPassword">密码</label>
+            <input
+                type="password"
+                id="regPassword"
+                minlength="8"
+                required
+            >
+
+            <label for="nationality">国籍</label>
+            <input
+                type="text"
+                id="nationality"
+                placeholder="例如：Japan"
+                required
+            >
+
+            <label for="nativeLanguage">母语</label>
+            <input
+                type="text"
+                id="nativeLanguage"
+                placeholder="例如：Japanese"
+                required
+            >
+
+            <label for="chineseLevel">汉语等级</label>
+
+            <select id="chineseLevel" required>
+                <option value="1">一级</option>
+                <option value="2">二级</option>
+                <option value="3">三级</option>
+                <option value="4">四级</option>
+                <option value="5">五级</option>
+                <option value="6">六级</option>
+                <option value="7">七级</option>
+                <option value="8">八级</option>
+                <option value="9">九级</option>
+            </select>
+
+            <div class="agreement">
+
+                <input
+                    type="checkbox"
+                    id="consent"
+                    required
+                >
+
+                <label for="consent">
+                    我已阅读并同意
+                    <a href="/static/privacy.html"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        隐私协议
+                    </a>
+                </label>
+
+            </div>
+
+            <button type="submit">
+                注册账号
+            </button>
+
+        </form>
+
+        <button
+            type="button"
+            class="switch"
+            onclick="showRegister(false)"
+        >
+            已有账号？返回登录
+        </button>
+
+    </div>
+
+    <p id="message" role="status"></p>
+
+</div>
+
+
+<script>
+
+    const message = document.getElementById("message");
+
+    // 切换注册与登录页面
+    function showRegister(show) {
+
+        document.getElementById(
+            "registerArea"
+        ).hidden = !show;
+
+        document.getElementById(
+            "loginArea"
+        ).hidden = show;
+
+        message.textContent = "";
+    }
+
+
+    // 统一发送 POST 请求
+    async function postJSON(path, data) {
+
+        const response = await fetch(
+            "/api/auth/" + path,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "same-origin",
+                body: JSON.stringify(data)
+            }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            const error = new Error(
+                typeof result.detail === "string"
+                    ? result.detail
+                    : "请求失败，请检查输入信息"
+            );
+            error.code = result.code;
+            throw error;
+        }
+
+        return result;
+    }
+
+
+    function showVerificationMessage(result) {
+        if (result.dev_verify_url) {
+            message.textContent = "本地测试模式，请点击链接完成验证。";
+            const link = document.createElement("a");
+            link.href = result.dev_verify_url;
+            link.textContent = "开发模式：点击验证邮箱";
+            message.append(document.createElement("br"), link);
+            return;
+        }
+
+        message.textContent = result.message;
+    }
+
+    function showResendButton(data) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = "重新发送验证邮件";
+        button.onclick = async function() {
+            button.disabled = true;
+            try {
+                const result = await postJSON("resend-verification", data);
+                if (button.isConnected) showVerificationMessage(result);
+            } catch (error) {
+                if (!button.isConnected) return;
+                message.textContent = error.message;
+                showResendButton(data);
+            }
+        };
+        message.append(document.createElement("br"), button);
+    }
+
+    // 注册
+    document.getElementById(
+        "registerForm"
+    ).addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const data = {
+
+            email:
+                document.getElementById(
+                    "regEmail"
+                ).value,
+
+            password:
+                document.getElementById(
+                    "regPassword"
+                ).value,
+
+            nationality:
+                document.getElementById(
+                    "nationality"
+                ).value,
+
+            native_language:
+                document.getElementById(
+                    "nativeLanguage"
+                ).value,
+
+            chinese_level:
+                Number(
+                    document.getElementById(
+                        "chineseLevel"
+                    ).value
+                ),
+
+            consent:
+                document.getElementById(
+                    "consent"
+                ).checked
+        };
+
+        try {
+
+            message.textContent = "正在注册...";
+
+            const result = await postJSON(
+                "register", data
+            );
+
+            showRegister(false);
+            document.getElementById("loginEmail").value = data.email;
+            document.getElementById("loginPassword").value = "";
+            showVerificationMessage(result);
+
+        } catch (error) {
+
+            message.textContent = error.message;
+        }
+
+    });
+
+
+    // 登录
+    document.getElementById(
+        "loginForm"
+    ).addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const data = {
+
+            email:
+                document.getElementById(
+                    "loginEmail"
+                ).value,
+
+            password:
+                document.getElementById(
+                    "loginPassword"
+                ).value
+        };
+
+        try {
+
+            message.textContent = "正在登录...";
+
+            await postJSON("login", data);
+
+            // 登录成功，打开跟读页面
+            window.location.href = "/";
+
+        } catch (error) {
+
+            message.textContent = error.message;
+            if (error.code === "EMAIL_UNVERIFIED") showResendButton(data);
+        }
+
+    });
+
+
+    // 用户从邮箱验证链接进入时
+    async function checkVerificationLink() {
+
+        const params = new URLSearchParams(
+            window.location.hash.substring(1)
+        );
+
+        const token = params.get("verify");
+
+        if (!token) {
+            return;
+        }
+
+        // 从浏览器地址栏去掉验证凭据
+        history.replaceState(
+            null,
+            "",
+            window.location.pathname
+        );
+
+        showRegister(false);
+
+        message.textContent = "正在验证邮箱...";
+
+        try {
+
+            const result = await postJSON(
+                "verify-email",
+                { token: token }
+            );
+
+            message.textContent = result.message;
+
+        } catch (error) {
+
+            message.textContent = error.message;
+        }
+    }
+
+    window.addEventListener("hashchange", checkVerificationLink);
+    checkVerificationLink();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+  "snapshot_date": "2026-11-18",
+  "repositories": [
+    {
+      "name": "admin",
+      "path": "03_管理端/当前开发",
+      "url": "https://github.com/Parallaxxion/-cowork.git",
+      "branch": "main",
+      "commit": "d84867a65e02c69e085f8f41d103f26dff449168",
+      "source_visibility": "public",
+      "snapshot_file_count": 37,
+      "archive_path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照",
+      "snapshot_scope": "完整来源文件在archive_path；path为可持续修改的开发副本"
+    },
+    {
+      "name": "student",
+      "path": "01_学生端/当前开发",
+      "url": "https://github.com/xiaowang-maker/student-subsystem.git",
+      "branch": "main",
+      "commit": "cb1b29077c8f99ca395b003b832d3bc2e9a0d296",
+      "source_visibility": "private",
+      "snapshot_file_count": 27,
+      "archive_path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照",
+      "snapshot_scope": "完整来源文件在archive_path；path为可持续修改的开发副本"
+    },
+    {
+      "name": "proposition",
+      "path": "02_命题端/当前开发",
+      "url": "https://github.com/S-0611/chinese-proposition-subsystem.git",
+      "branch": "main",
+      "commit": "f978eef098ebd1cfab10da533a054f4d0c81dc45",
+      "source_visibility": "public",
+      "snapshot_file_count": 60,
+      "archive_path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照",
+      "snapshot_scope": "完整来源文件在archive_path；path为可持续修改的开发副本"
+    }
+  ],
+  "mode": "ordinary_directories",
+  "note": "三个小组均为普通目录。首次导入快照按原始哈希保留在周次归档，当前开发可持续迭代；无子模块，无自动双向同步。管理端第一周汇报发生于11月16日。学生端与命题端为11月18日取得的版本，未虚构第一周截点。"
+}

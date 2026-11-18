@@ -1,0 +1,622 @@
+[
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/.gitattributes",
+    "bytes": 214,
+    "sha256": "5475458c6b66e3fabb1d7c6eb07e3366d2efec682fa609133d9bac2ba7cf67bb"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/.gitignore",
+    "bytes": 221,
+    "sha256": "ca454845d1ec57728b1a24487fdc4cdde56712df07661c07f5bf721774fdb406"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/CONTRIBUTING.md",
+    "bytes": 2555,
+    "sha256": "575d58c1d863a6f29b2a16a0a7c20e5638b58c054f40b070208a555ac8e54636"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/README.md",
+    "bytes": 6359,
+    "sha256": "a3e5d96ae58c85bf88141bc9c60ef36b436c2a7a970a62af2585bdad7df78be6"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/docs/api/三端接口与数据契约草案.txt",
+    "bytes": 4701,
+    "sha256": "13db4550d223470d4fe87f528858d7d517906e8b26f7f902d3b5808fce9fd6db"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/docs/api/接口样例_讨论稿.json",
+    "bytes": 1624,
+    "sha256": "eea0afdea5fd8a9a4946fb615762d0332f83e06677dce729a3a6e6ff5c723dba"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/docs/references/README.md",
+    "bytes": 1958,
+    "sha256": "f5ef3ef55dbe6f95f017ee4c871e7b4b7c3cab74ba3a51092ff100a22f3ab9b1"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/docs/references/任务书-音频数据采集系统-V6.4.docx",
+    "bytes": 14218,
+    "sha256": "83071567354d6bed8b868219b418b6c85cba4c5e355cb140fcf1e79962152c13"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/docs/requirements/第一阶段任务梳理_20261109.txt",
+    "bytes": 13865,
+    "sha256": "f5288694f487155c22e9a614d1da83094d3b17510646b046594a5d55f6296ad9"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/docs/requirements/管理端需求与实施方案.txt",
+    "bytes": 7735,
+    "sha256": "e88ea33d888350b07a7039ae738f0322eb70a5c838ef8d70e8ce674a2f2e1e86"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/docs/team/分工与验收清单.txt",
+    "bytes": 12476,
+    "sha256": "1e88df2229571f82684fbe4c19ae7b41951e97000def58aa716cc580103a603f"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/docs/team/待协调事项.md",
+    "bytes": 2002,
+    "sha256": "69d27bc160aa4ee47340ec90c5f274f922afbbbb078edcd9ff4ff9fd68213095"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/docs/team/接手指南.md",
+    "bytes": 3599,
+    "sha256": "8fd7ec1077136aa12595000eba8c60e11d3e131434d66e3d2734cfec5804e933"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/evidence/README.md",
+    "bytes": 1351,
+    "sha256": "e68bcd5b5150172eaa21cc66bc5d5dd71ff423572e342f30b73d96f98294dc6b"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/evidence/偏误详情_页面.png",
+    "bytes": 530095,
+    "sha256": "d6daffa558899a600652094a6b83b3ac077312b8c4ba0ea820b008847c93cbd7"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/evidence/录音列表_页面.png",
+    "bytes": 622730,
+    "sha256": "066d0929aa87996558df27be8b9c48affb1a09d3fb681cef8e32daa2fbb8452f"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/evidence/打包复测记录.txt",
+    "bytes": 803,
+    "sha256": "a39db38dae6fa83aa5cc66d48e654220ecc5bf6357abc35300c104712d984d11"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/evidence/演示导出包.zip",
+    "bytes": 522595,
+    "sha256": "9ccc6b50622e45f900f1004b4adc7d35be22210bd11a090646907af6369ea79a"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/evidence/验证记录.txt",
+    "bytes": 913,
+    "sha256": "8ee10a194a1170208d18b859eddc03963466a6ca0ebd68d39c28ec475bed9c01"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/packages/README.md",
+    "bytes": 1010,
+    "sha256": "7d0b9c8640a67efc64d68ac254a66e59cd85e14391a5293e6da6b80b8e56b783"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/packages/week-01-20261116-files.json",
+    "bytes": 5694,
+    "sha256": "868c16b1f5424dda7f727d6bf67eae809faca45aa3c02b0a51a7bbc55cb3e045"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/packages/week-01-20261116.zip",
+    "bytes": 3106762,
+    "sha256": "92c73403f8f43dce26a6cf176558606ebe9ea3bd3cb4f48bc30bf35d75aa0991"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/packages/week-01-20261116.zip.sha256",
+    "bytes": 87,
+    "sha256": "f901d735b8c9a0caf45ff31f873a6b8631809e50f03d45b5393819ca275f48aa"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/prototype/server.py",
+    "bytes": 11464,
+    "sha256": "3ee9523d2ea5caec5f13e9ee6d48cede5fb2edc5f2bc6625a3dd0d6ae97ba83f"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/prototype/static/app.js",
+    "bytes": 9692,
+    "sha256": "e0483835675aabd08c6fca071cd8c0cac14cfcafc628c39e38df71f0602192c3"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/prototype/static/audio/Q-001.wav",
+    "bytes": 64034,
+    "sha256": "4a919badda73acd39181d830cb754bc91efed906a91eea317f61129606bdb312"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/prototype/static/audio/Q-002.wav",
+    "bytes": 63704,
+    "sha256": "4e5b0bb1eda418aabed7b396031fc895f6ce0d038a0d0a0522fc16ca753cb235"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/prototype/static/audio/Q-003.wav",
+    "bytes": 64820,
+    "sha256": "40a968a1121a1494fbe26a8acde1876788a3b6812d8ff8313cfa66b896e70eef"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/prototype/static/audio/Q-004.wav",
+    "bytes": 77224,
+    "sha256": "314c04c4f8ff7e0c4014d05981f3939274d27a828778f81755bd96f391456021"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/prototype/static/index.html",
+    "bytes": 1248,
+    "sha256": "6c483dce5e791d0ded61a3e85e5c88096eb5f10255650a350c052cbb3e2c2fac"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/prototype/static/style.css",
+    "bytes": 4585,
+    "sha256": "06b822e0980425e190e880f71d34fcc45451ec38e2e6872b3201e16daa1dd9df"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/prototype/verify.py",
+    "bytes": 4571,
+    "sha256": "ab1c75cb1cd2a2d178390ca31fd20cd900773c2a09890350b64136a627f0e2ba"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/prototype/启动演示.command",
+    "bytes": 65,
+    "sha256": "040ceddc3c6fc737deebe72d2fd060d479709c821946ff174716705d5c9383a3"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/reports/week-01/README.md",
+    "bytes": 3411,
+    "sha256": "02e7a483ad3f760453e20e3d5e82f480bc8b042d0086017f1a291eacdfdf2251"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/reports/week-01/汇报讲稿与演示步骤.txt",
+    "bytes": 16473,
+    "sha256": "c6e86973d4dd79b96473334db6869a9f4f0d1bce6ea817922953084035403ae2"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/reports/week-01/管理端第一阶段进展汇报_20261116.pptx",
+    "bytes": 1185144,
+    "sha256": "8fcc1c6a50ec0f31ac4fc630a394fbae402ad3939880b471a5adeb96aac1eac1"
+  },
+  {
+    "path": "03_管理端/2026.11.09-2026.11.15第1周/成果快照/scripts/package_week01.py",
+    "bytes": 2722,
+    "sha256": "581642cea66e791e08dc25d9a0d6d640d35f5346943a49d03d9a78f8fdd8c28b"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/.env.example",
+    "bytes": 409,
+    "sha256": "2f21367fb06f7356baa6326c8b224773be4360adabbcfcec3a3f76035888d6a8"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/.gitattributes",
+    "bytes": 104,
+    "sha256": "b0bc7185887aaac22dd47f405e9719202410e8d47b1817bd5a9c3f258201fa9a"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/.gitignore",
+    "bytes": 405,
+    "sha256": "deeba78e05dd711d81dcbde9fcc7f6be34473bfe5753259c9e5ab331a8aeeb4b"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/README.md",
+    "bytes": 1917,
+    "sha256": "776412c4bcc18ef5ebf57a94391c3fab4df4feaba78fbd37d03bf193dcd76fca"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/backend/app/__init__.py",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/backend/app/build_pinyin.py",
+    "bytes": 4700,
+    "sha256": "a51da3493037f2f2152e96e47d777c585ac33be8d49cec45a42e971a35c91f20"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/backend/app/check_db.py",
+    "bytes": 466,
+    "sha256": "3c57d5785b316a10768d3bfd4f79e2e4dbaf06a898ce0483e951177600a8d1eb"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/backend/app/check_questions.py",
+    "bytes": 459,
+    "sha256": "96e3ad4b42362a9a11fda7e47e1c833e78670f97e525f649a6f8976801a88b4d"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/backend/app/database.py",
+    "bytes": 1082,
+    "sha256": "e52f85655985dec2087be02b34158150249199612592995832809bd55bafef67"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/backend/app/diagnosis_cli.py",
+    "bytes": 1045,
+    "sha256": "d6d3ed82a994884cac1e60e80f178a850b119a522e5bb76fcf9301b7bbdce5a6"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/backend/app/import_questions.py",
+    "bytes": 1536,
+    "sha256": "44a7e762a14bfa0e48d893ec8932e7566a51b5e2bffaaeeb0d591d865f204122"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/backend/app/init_db.py",
+    "bytes": 882,
+    "sha256": "ebfae77f57b160b7387545ae6da923bbe511b791e173824da5c04db5ba87406f"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/backend/app/main.py",
+    "bytes": 1104,
+    "sha256": "91a05662d2f324f9ae389544bca8f056242df647aa8404147ace1e357ce8645b"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/backend/app/models.py",
+    "bytes": 7895,
+    "sha256": "cdb36e4e4efa6661622d57ff4ea77d59bef8033e4114dba061479fccf2288ccd"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/backend/app/routes/__init__.py",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/backend/app/routes/auth.py",
+    "bytes": 13880,
+    "sha256": "1d33eb809ca8d81c8e886887eba80c8e58d628913b615fb2b76cf655e2927bda"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/backend/app/routes/questions.py",
+    "bytes": 2540,
+    "sha256": "1038b71e20473bc1fd254e7cb7c0b9ce45d5c217659311d0a1b6a1c7c0413f67"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/backend/app/routes/recordings.py",
+    "bytes": 7105,
+    "sha256": "17d5e9f6882f35505d8d3b6aac08ed5a306b533dd2f6212c6f6ff103e22568d2"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/backend/app/services/__init__.py",
+    "bytes": 1,
+    "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/backend/app/services/audio.py",
+    "bytes": 1157,
+    "sha256": "4570dddc69c548cd0b3e28101941dc2217518e796ed6e20d9af965ca127cd239"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/backend/app/services/diagnosis.py",
+    "bytes": 5310,
+    "sha256": "59ccc3ffe64969aa170ff1cd55d110ce556b82a355faf36d9a25b73bd832ba61"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/backend/data/.gitkeep",
+    "bytes": 1,
+    "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/backend/data/level1.json",
+    "bytes": 47045,
+    "sha256": "e904937da00e768508284f170581d17632aa5b33d75cfbf4901f4ebd65f1c5db"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/frontend/auth.html",
+    "bytes": 10975,
+    "sha256": "b4a4a19257e3b726cfc80f9c2d88f775e1ffceca65c07def78e3942c3a255402"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/frontend/index.html",
+    "bytes": 14598,
+    "sha256": "b49bdf98c16d018427e9481e715095284bafbe9e534d48b2a5e94440dcdda666"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/frontend/privacy.html",
+    "bytes": 2462,
+    "sha256": "b96a55e0530ace7e20525c678123448c48027d6417cb831df548894426ed1a70"
+  },
+  {
+    "path": "01_学生端/2026.11.16-2026.11.22第2周/成果快照/requirements.txt",
+    "bytes": 142,
+    "sha256": "61b09d5daefc4c606d1d2ff96bf61131131f02d1fdb7a64476908281c86db1e7"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/.gitignore",
+    "bytes": 75,
+    "sha256": "c0af33992fa25169debf3d8983dc58bfc1ee4d97601975f4125844d3bdfadbcb"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/README.md",
+    "bytes": 3502,
+    "sha256": "bc93b4facc4045d445437defe8c162eacc2160cdff5bc99e1a319b867a60bf2f"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/backend/README.md",
+    "bytes": 294,
+    "sha256": "dc34724982a1a7f140068011fc6f776edc8fa202df5575c263636a3e530d09aa"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/backend/db.py",
+    "bytes": 2799,
+    "sha256": "97bb564689db84e7249c20a8bc72921c810762e9d1ca35c87d81c836bbc50258"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/backend/import_bank.py",
+    "bytes": 7772,
+    "sha256": "9a9900efce226563667ee030898bd55eb9eaad18c365a3b3787c48c8bae74dd6"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/backend/init_db.py",
+    "bytes": 1540,
+    "sha256": "10ac19f83043a8f8f8a3a69eee7fe00cfdc03c2cfd6d9fac8428a486c5f15eba"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/backend/main.py",
+    "bytes": 15787,
+    "sha256": "8175e43267d80efff4d9d2fffb43a4b677e2ed02d1c4e60d6a895bc3a541bd07"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/backend/test_api.py",
+    "bytes": 11459,
+    "sha256": "2b3f7bc3004005013d176c35a94efef05d95ddc7fdab695bb130283a211e0ac7"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/banks/level1/final.json",
+    "bytes": 47045,
+    "sha256": "e904937da00e768508284f170581d17632aa5b33d75cfbf4901f4ebd65f1c5db"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/banks/level1/round1.json",
+    "bytes": 18901,
+    "sha256": "5cd265b5e056a636390327098684f60d31d2218e60248a3b52ff07792f1549c3"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/banks/level1/round2.json",
+    "bytes": 46127,
+    "sha256": "bc12bd8b2b2d8ba80e5ff1ef9b4218aab23dfeebc8033868e777c9c2ebd5fd6a"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/banks/level1/round2_add.json",
+    "bytes": 19406,
+    "sha256": "d73a5a7a0ab532aa030e3057e19f5df7e95be45aa15a1a47b1cf8809d7181f41"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/banks/level1/round3_add.json",
+    "bytes": 781,
+    "sha256": "d7d934cefdf443eaaa35d8a58d9366522dd53931b30166dfdcdd84149643578b"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/data/levels/level1.json",
+    "bytes": 12733,
+    "sha256": "7c714bb887d24ddf3364e2ecf52e8445fb49ba24f322f73eab09ca7c60fce3e8"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/docs/两周分工计划.md",
+    "bytes": 12504,
+    "sha256": "6ed199c939a3f7d1b5aecd7779b94185e2b7e5f496ac0b61a376b4616225cab5"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/docs/今日任务看板.md",
+    "bytes": 5933,
+    "sha256": "9c6b6590e7a1a69802e62d51ee403c78eb4971411dcc2cf1cf8f22d3a3bdebae"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/docs/今日进度_2026-11-18.md",
+    "bytes": 1333,
+    "sha256": "42fee9d3cfb3d99a3a7a1746e57f17ad32ab251f2974637b9760f9b126d43b35"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/docs/前端扩充方案.md",
+    "bytes": 1779,
+    "sha256": "176db9f666d710715e81e6f6b2e9dfaa8b4d21c6c3430679413d3ed9dd10ce42"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/docs/前端联调测试清单.md",
+    "bytes": 2552,
+    "sha256": "116b1fa7f835c0346ce3b8ba1f391c6eff5e448507173ebf1383ef80f2509e71"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/docs/命题流水线说明.md",
+    "bytes": 10196,
+    "sha256": "c00f228fd62d04236478b3a7ad79f3087703645d6ce02a0218159d99b3bc27f1"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/docs/命题项目README.md",
+    "bytes": 2300,
+    "sha256": "86e87f16eab3aab1573682b571e25020e69ff772b26415a28deaacfa78837845"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/docs/接口字段约定.md",
+    "bytes": 2299,
+    "sha256": "be7674ae56e92383024ee7fc9f01ce01ed2354c767741459d4ca40288afce9e3"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/docs/接口说明初稿.md",
+    "bytes": 5557,
+    "sha256": "5bed53567f1d70961a29d756d9059daa109aaa97c76bccac529ced2e04d4c6ca"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/docs/接口返回示例.md",
+    "bytes": 6007,
+    "sha256": "466997aa05959d4f7920d6b88ad9233ec3b0f360d5e7f1955fe50d8516fd24d8"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/docs/数据库生成说明.md",
+    "bytes": 1660,
+    "sha256": "89c5c9daa0e5c0a3b252e0a3398c4f62535f2aa7bc39458146c552fed926a748"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/docs/问题清单.md",
+    "bytes": 719,
+    "sha256": "166b76f2b720e4665795aa515864e1dc281fc693937e8dd1698e12bbe6f61696"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/frontend/README.md",
+    "bytes": 173,
+    "sha256": "582f914c022b8a24e38503b7e26f31c58d64adc7bd4053cedbb2a0ddae0fc42f"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/frontend/app.js",
+    "bytes": 3815,
+    "sha256": "ffeef5d471e84d868649d1a0402925a3d598419b2d47c4a808443d8949a16325"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/frontend/index.html",
+    "bytes": 1936,
+    "sha256": "0b1f094d8861931fe736132602b4f5f97803795d650a2893e60782517ac3cce4"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/frontend/style.css",
+    "bytes": 2437,
+    "sha256": "aa98a448259d54b19a5ed3f6dab6807cb0bd09289fe671f5dd8b629fd5af588e"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/adjust_plan_final.json",
+    "bytes": 425,
+    "sha256": "24a1939aff61f4601d91ffad34db38180fb79ce7342bc87f3ff3977afb14bf86"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/adjust_plan_v1.json",
+    "bytes": 3462,
+    "sha256": "9a7356042719615173667f197673503bcdc7104dea5998da5fed8cfe69c2cce2"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/adjust_plan_v2.json",
+    "bytes": 492,
+    "sha256": "1c42d9f87dbb1ce7f3cf827298f3b7cc2d1f4bb988a6478c7238cb63bdec4eba"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/adjust_plan_v3.json",
+    "bytes": 438,
+    "sha256": "30ee3d27f13ad9a04a1ca2e1922ba973e34ed791c576a180228e8c6ae1405a01"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/api_responses_20261118.json",
+    "bytes": 13250,
+    "sha256": "77fcec78038a2826b5057a6c465bcfbe8213d98d59e8ed866ec962374bfa3d27"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/api_stats_20261118_083148.json",
+    "bytes": 4343,
+    "sha256": "481c7e7227233e8a8c6611338b396b8c7bb46a46bb7960a9c0a22368be519890"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/api_test_20261118.txt",
+    "bytes": 408462,
+    "sha256": "fad11f79600116e6a0512e07d6f8b720045d75aef44429c934083d7f3df46d2c"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/api_validate_20261118_083148.json",
+    "bytes": 203,
+    "sha256": "5df47f6be22386feff7ed9c51b92eef86610dc72a5f63e05ac3ebfaaa7ab9edf"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/stats_final.json",
+    "bytes": 4184,
+    "sha256": "2f7d5ce7023ef9497bd1043ba51baf9abf40065c6b22af2af76990f80979ba80"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/stats_final.md",
+    "bytes": 2555,
+    "sha256": "2ace9a6dbb0a36d64c8cffbf67eb394235871fc566834a3cd73c5b7d566ba2f3"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/stats_v1.json",
+    "bytes": 6231,
+    "sha256": "c8569434ed16b3044b8a624bed4e02403a9deccfd9c0892e60e4666dd013a6af"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/stats_v1.md",
+    "bytes": 3933,
+    "sha256": "521eeb6fa9afb08b6009350970e5e26cc3c8f0c0437a16bbc0b3c3e561ba374f"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/stats_v2.json",
+    "bytes": 4309,
+    "sha256": "3102c18c42d7649bfbcc08ba3169066035302234094e638e89b1c29a178b4fef"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/stats_v2.md",
+    "bytes": 2768,
+    "sha256": "baac018e13f1dcd6c5f6df2001a47e2bbc6fb90f1fa2f6b0875f07dc00e756b6"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/stats_v3.json",
+    "bytes": 4247,
+    "sha256": "3a0104d34f4a4bf8512b8e43e8a3b0f9f5b2bf087c0f364deed63a3451b17e44"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/stats_v3.md",
+    "bytes": 2699,
+    "sha256": "8b2b09fe1401bbb25d781c8930b6eb9e8ef5efe0962be47a93bbcb932f7479bf"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/swagger_ui.png",
+    "bytes": 73074,
+    "sha256": "d69bce3e6db1ae6e41c0c41d5a6bc54146575b3fe89f1cbf29e992fbe0aa76f9"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/validate_final.md",
+    "bytes": 180,
+    "sha256": "ba218f1776aa9b9beb06d051a7176eebed5d183b990cdaed6851dcc8b9e4db98"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/validate_v1.md",
+    "bytes": 180,
+    "sha256": "406595393baf6d8bf90f96c22dd94c83531c915c0c3d6195454591d1c0ddecc1"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/validate_v2.md",
+    "bytes": 180,
+    "sha256": "37f87bb770ac79ae2d51f95ea630d0b3f28edc5735b3119b36ccbec33114d00e"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/validate_v3.md",
+    "bytes": 180,
+    "sha256": "60175ef9919f14abc9d4ddea5495015137c801e9a4b91430927c66f8ab6fa1ce"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/一级题库校验结果.md",
+    "bytes": 5758,
+    "sha256": "4985eff657fd2629c7b11e7f75d9627015f4432e0ec5bd98f75385422f9f6014"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/一级题库统计结果.md",
+    "bytes": 4691,
+    "sha256": "b5e5f169e6f0609f6f4e51ea28d0da51101f7588f70a3166c0bf7e21f31b8b49"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/人工抽检记录.md",
+    "bytes": 6273,
+    "sha256": "7762a56ccf0dafc666a6fa03be7df47ab664d505576c105495479b4030c5d7a1"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/reports/level1/题库问题清单.md",
+    "bytes": 5404,
+    "sha256": "774bd3dd06b1226e5d83db8f2112733ef193c9f39e4b06af487401e209d8f1fe"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/scripts/build_level1.py",
+    "bytes": 10014,
+    "sha256": "0671133a46734364da55649909b2512e614138808948620ef268db3979a0ed19"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/scripts/lib.py",
+    "bytes": 4457,
+    "sha256": "0ef92f7c123e5b43b6f00bcb9316c066553e52f9aa0d6056a8ee60feae0cb96f"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/scripts/pipeline.py",
+    "bytes": 3877,
+    "sha256": "19be6fffd0b8fb16baddb585ea45198f9ab68048d9f02cb1eda54672acafcef5"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/scripts/stats.py",
+    "bytes": 7837,
+    "sha256": "19914d0b205e143986f37128729b254ce1383cf233a0691f48a2fc830e2128a5"
+  },
+  {
+    "path": "02_命题端/2026.11.16-2026.11.22第2周/成果快照/scripts/validate.py",
+    "bytes": 2614,
+    "sha256": "3b8fa75e022a8bdc0215f57ce081387c2cf7361eb3cff92ef7c6214af32912e6"
+  }
+]
