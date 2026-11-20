@@ -2,6 +2,30 @@ let state, view='recordings', selectedId=null;
 const labels={overview:'采集概览',recordings:'录音核查',questions:'题目覆盖',speakers:'说话人',history:'操作记录'};
 const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const active=()=>state.recordings.filter(r=>!r.deleted);
+function diagnosisLabel(diagnosis) {
+  if (!diagnosis) {
+    return '暂无诊断结果';
+  }
+
+  switch (diagnosis.status) {
+    case 'pending':
+      return '等待检测';
+    case 'processing':
+      return '检测中';
+    case 'failed':
+      return '检测失败';
+    case 'completed':
+      if (!Array.isArray(diagnosis.errors)) {
+        return '诊断数据不完整';
+      }
+
+      return diagnosis.errors.length > 0
+        ? `${diagnosis.errors.length} 条偏误标注`
+        : '本次模型未检出偏误';
+    default:
+      return '诊断状态未知';
+  }
+}
 function toast(message){const t=document.querySelector('#toast');t.textContent=message;t.style.display='block';setTimeout(()=>t.style.display='none',4000);}
 async function refresh(){try{const response=await fetch('/api/state');if(!response.ok)throw Error('数据加载失败');state=await response.json();render();}catch(error){toast(error.message);}}
 function render(){
@@ -23,10 +47,252 @@ function render(){
  document.querySelector('#content').innerHTML=`<div class="grid"><div class="panel pad"><h2>等级采集进度</h2><p class="muted">每次录音独立计数，已删除记录不计入有效量。</p>${[1,2].map(l=>`<div class="metadata"><span>${l} 级<b>${active().filter(r=>r.level===l).length} 条录音</b></span><span>题目覆盖<b>${state.questions.filter(q=>q.level===l&&q.count>0).length} / ${state.questions.filter(q=>q.level===l).length}</b></span></div>`).join('')}</div><div class="panel pad"><h2>本地演示进展</h2><p>录音筛选、在线回听、偏误展示</p><p>备注保存、删除恢复、操作撤销</p><p>音频、信息清单、标注打包导出</p><p class="muted">真实接口、身份认证、HTTPS 与跨端联调待实施。</p><a class="primary" href="/api/export">下载演示数据包</a></div></div>`;
  }
 }
-function renderRows(){const search=document.querySelector('#search').value.toLowerCase(),level=document.querySelector('#level').value,deleted=document.querySelector('#scope').value==='deleted';const rows=state.recordings.filter(r=>Boolean(r.deleted)===deleted&&(!level||r.level===Number(level))&&[r.id,r.speaker_id,r.question_id,r.text].join(' ').toLowerCase().includes(search));document.querySelector('#rows').innerHTML=`<table><thead><tr><th>录音 / 题目</th><th>说话人</th><th>等级</th><th>录音序号</th><th>机器预标样例</th><th>操作</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${escapeHtml(r.text)}<small>${r.id} · ${r.question_id}</small></td><td>${r.speaker_id}<small>${r.nationality}</small></td><td>${r.level} 级</td><td>第 ${r.attempt} 次</td><td><span class="tag ${r.diagnosis.errors.length?'warn':''}">${r.diagnosis.errors.length? r.diagnosis.errors.length+' 处偏误样例':'无偏误样例'}</span></td><td><button class="link" data-open="${r.id}">核查详情 ↗</button></td></tr>`).join('')||'<tr><td colspan="6">没有符合条件的录音。</td></tr>'}</tbody></table><div class="foot">共 ${rows.length} 条记录 · 演示样本均可追溯到说话人、题目和录音序号</div>`;document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>showDetail(b.dataset.open));}
-function showDetail(id){selectedId=id;const r=state.recordings.find(r=>r.id===id),errors=r.diagnosis.errors;let tokens='';const names={tone:'声调偏误',substitution:'声韵母误读',omission:'漏读'};[...r.text].forEach((char,index)=>{for(const e of errors.filter(e=>e.type==='insertion'&&e.boundary_index===index))tokens+=`<span class="insertion">增读<br>${escapeHtml(e.actual)}</span>`;const found=errors.filter(e=>e.char_index===index);tokens+=`<div class="char ${found[0]?.type||''}"><small>${escapeHtml(r.pinyin[index])}</small><b>${char}</b>${found.map(e=>`<small>${names[e.type]}<br>${escapeHtml(e.actual||'未读出')}</small>`).join('')}</div>`;});for(const e of errors.filter(e=>e.type==='insertion'&&e.boundary_index===[...r.text].length))tokens+=`<span class="insertion">增读 ${escapeHtml(e.actual)}</span>`;
- document.querySelector('#detailContent').innerHTML=`<div class="dialog-head"><div><div class="eyebrow">录音核查 / ${r.id}</div><h2>${r.text}</h2></div><button id="close">关闭</button></div><div class="metadata"><span class="muted">匿名编号<b>${r.speaker_id}</b></span><span class="muted">题目编号<b>${r.question_id}</b></span><span class="muted">录音序号<b>第 ${r.attempt} 次</b></span><span class="muted">录音时间<b>${new Date(r.recorded_at).toLocaleString('zh-CN')}</b></span></div><h3>逐字与字间偏误</h3><div class="phonetics">${tokens}</div><div class="legend">橙色 声调偏误　红色 声韵母误读　蓝色 漏读　紫色 字间增读<br>人工构造标注，仅验证展示与位置映射。音频为正常朗读的合成语音。</div><div class="audio"><span class="muted">${r.device} · WAV</span><audio controls preload="metadata" src="/audio/${r.audio}"></audio></div><label for="note">核查备注</label><textarea id="note" rows="2" maxlength="500" placeholder="记录核查意见">${escapeHtml(r.note)}</textarea><div class="actions"><button id="delete" class="danger">${r.deleted?'恢复录音':'删除录音'}</button><button id="save" class="primary">保存备注</button></div>`;
- document.querySelector('#close').onclick=()=>document.querySelector('#detail').close();document.querySelector('#save').onclick=()=>mutate('/api/recordings/update',{id:r.id,version:r.version,kind:'note',note:document.querySelector('#note').value},true);document.querySelector('#delete').onclick=()=>{if(r.deleted||confirm('将录音移入已删除列表？可以恢复，文件会保留。'))mutate('/api/recordings/update',{id:r.id,version:r.version,kind:r.deleted?'restore':'delete'});};if(!document.querySelector('#detail').open)document.querySelector('#detail').showModal();
+function renderRows() {
+  const search = document.querySelector('#search').value.toLowerCase();
+  const level = document.querySelector('#level').value;
+  const deleted = document.querySelector('#scope').value === 'deleted';
+
+  const rows = state.recordings.filter(r =>
+    Boolean(r.deleted) === deleted &&
+    (!level || r.level === Number(level)) &&
+    [r.id, r.speaker_id, r.question_id, r.text]
+      .join(' ')
+      .toLowerCase()
+      .includes(search)
+  );
+
+  document.querySelector('#rows').innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>录音 / 题目</th>
+          <th>说话人</th>
+          <th>等级</th>
+          <th>录音序号</th>
+          <th>诊断状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows.map(r => `
+          <tr>
+            <td>
+              ${escapeHtml(r.text)}
+              <small>
+                ${escapeHtml(r.id)} · ${escapeHtml(r.question_id)}
+              </small>
+            </td>
+            <td>
+              ${escapeHtml(r.speaker_id)}
+              <small>${escapeHtml(r.nationality)}</small>
+            </td>
+            <td>${escapeHtml(r.level)} 级</td>
+            <td>第 ${escapeHtml(r.attempt)} 次</td>
+            <td>
+              <span class="tag">
+                ${escapeHtml(diagnosisLabel(r.diagnosis))}
+              </span>
+            </td>
+            <td>
+              <button
+                class="link"
+                data-open="${escapeHtml(r.id)}"
+              >核查详情 ↗</button>
+            </td>
+          </tr>
+        `).join('') || `
+          <tr>
+            <td colspan="6">没有符合条件的录音。</td>
+          </tr>
+        `}
+      </tbody>
+    </table>
+    <div class="foot">
+      共 ${rows.length} 条记录 ·
+      演示样本均可追溯到说话人、题目和录音序号
+    </div>
+  `;
+
+  document.querySelectorAll('[data-open]').forEach(button => {
+    button.onclick = () => showDetail(button.dataset.open);
+  });
+}
+function showDetail(id) {
+  const r = state.recordings.find(recording => recording.id === id);
+
+  if (!r) {
+    toast('未找到这条录音，请刷新列表');
+    return;
+  }
+
+  selectedId = id;
+
+  const diagnosis = r.diagnosis;
+  const completed = diagnosis?.status === 'completed';
+  const validErrors = Array.isArray(diagnosis?.errors);
+
+  // 仅在诊断完成且结果结构完整时展示偏误。
+  const errors = completed && validErrors ? diagnosis.errors : [];
+
+  const characters = Array.from(r.text);
+  const pinyin = Array.isArray(r.pinyin) ? r.pinyin : [];
+  const names = {
+    tone: '声调偏误',
+    substitution: '声韵母误读',
+    omission: '漏读'
+  };
+
+  let tokens = '';
+
+  // 暂沿用当前原型的逐字结构，后续接入题目快照中的 tokens。
+  characters.forEach((char, index) => {
+    const insertions = errors.filter(error =>
+      error.type === 'insertion' &&
+      error.boundary_index === index
+    );
+
+    for (const error of insertions) {
+      tokens += `
+        <span class="insertion">
+          增读<br>${escapeHtml(error.actual)}
+        </span>
+      `;
+    }
+
+    const found = errors.filter(error =>
+      Object.hasOwn(names, error.type) &&
+      error.char_index === index
+    );
+
+    const annotations = found.map(error => {
+      if (error.type === 'omission') {
+        return '<small>漏读<br>未读出</small>';
+      }
+
+      return `
+        <small>
+          ${names[error.type]}<br>
+          预期 ${escapeHtml(error.expected)}<br>
+          实际 ${escapeHtml(error.actual)}
+        </small>
+      `;
+    }).join('');
+
+    tokens += `
+      <div class="char ${found[0]?.type || ''}">
+        <small>${escapeHtml(pinyin[index])}</small>
+        <b>${escapeHtml(char)}</b>
+        ${annotations}
+      </div>
+    `;
+  });
+
+  const trailingInsertions = errors.filter(error =>
+    error.type === 'insertion' &&
+    error.boundary_index === characters.length
+  );
+
+  for (const error of trailingInsertions) {
+    tokens += `
+      <span class="insertion">
+        增读<br>${escapeHtml(error.actual)}
+      </span>
+    `;
+  }
+
+  document.querySelector('#detailContent').innerHTML = `
+    <div class="dialog-head">
+      <div>
+        <div class="eyebrow">
+          录音核查 / ${escapeHtml(r.id)}
+        </div>
+        <h2>${escapeHtml(r.text)}</h2>
+      </div>
+      <button id="close">关闭</button>
+    </div>
+
+    <div class="metadata">
+      <span class="muted">
+        匿名编号<b>${escapeHtml(r.speaker_id)}</b>
+      </span>
+      <span class="muted">
+        题目编号<b>${escapeHtml(r.question_id)}</b>
+      </span>
+      <span class="muted">
+        录音序号<b>第 ${escapeHtml(r.attempt)} 次</b>
+      </span>
+      <span class="muted">
+        录音时间
+        <b>${new Date(r.recorded_at).toLocaleString('zh-CN')}</b>
+      </span>
+    </div>
+
+    <h3>诊断状态</h3>
+    <p role="status">${escapeHtml(diagnosisLabel(diagnosis))}</p>
+
+    <h3>逐字与字间偏误</h3>
+    <div class="phonetics">${tokens}</div>
+
+    <div class="legend">
+      橙色 声调偏误　红色 声韵母误读　
+      蓝色 漏读　紫色 字间增读<br>
+      当前使用人工构造标注和合成音频验证展示效果。
+    </div>
+
+    <div class="audio">
+      <span class="muted">${escapeHtml(r.device)} · WAV</span>
+      <audio
+        controls
+        preload="metadata"
+        src="/audio/${encodeURIComponent(r.audio)}"
+      ></audio>
+    </div>
+
+    <label for="note">核查备注</label>
+    <textarea
+      id="note"
+      rows="2"
+      maxlength="500"
+      placeholder="记录核查意见"
+    >${escapeHtml(r.note)}</textarea>
+
+    <div class="actions">
+      <button id="delete" class="danger">
+        ${r.deleted ? '恢复录音' : '删除录音'}
+      </button>
+      <button id="save" class="primary">保存备注</button>
+    </div>
+  `;
+
+  const dialog = document.querySelector('#detail');
+
+  document.querySelector('#close').onclick = () => dialog.close();
+
+  document.querySelector('#save').onclick = () => {
+    mutate('/api/recordings/update', {
+      id: r.id,
+      version: r.version,
+      kind: 'note',
+      note: document.querySelector('#note').value
+    }, true);
+  };
+
+  document.querySelector('#delete').onclick = () => {
+    if (
+      r.deleted ||
+      confirm('将录音移入已删除列表？可以恢复，文件会保留。')
+    ) {
+      mutate('/api/recordings/update', {
+        id: r.id,
+        version: r.version,
+        kind: r.deleted ? 'restore' : 'delete'
+      });
+    }
+  };
+
+  if (!dialog.open) {
+    dialog.showModal();
+  }
 }
 async function mutate(url,body,keep=false){try{const response=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const data=await response.json();if(!response.ok)throw Error(data.error);await refresh();if(keep)showDetail(selectedId);else document.querySelector('#detail').close();toast('操作已保存');}catch(error){toast(error.message);}}
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{view=b.dataset.view;render();});refresh();
