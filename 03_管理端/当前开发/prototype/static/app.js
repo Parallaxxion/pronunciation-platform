@@ -134,79 +134,65 @@ function showDetail(id) {
   // 仅在诊断完成且结果结构完整时展示偏误。
   const errors = completed && validErrors ? diagnosis.errors : [];
 
-  const characters = Array.from(r.text);
+  const snapshot = r.question_snapshot;
+  const displayText = snapshot?.display_text ?? r.text;
+  const characters = Array.from(displayText);
   const pinyin = Array.isArray(r.pinyin) ? r.pinyin : [];
-  const names = {
-    tone: '声调偏误',
-    substitution: '声韵母误读',
-    omission: '漏读'
-  };
-
-  let tokens = '';
-
-  // 暂沿用当前原型的逐字结构，后续接入题目快照中的 tokens。
-  characters.forEach((char, index) => {
-    const insertions = errors.filter(error =>
-      error.type === 'insertion' &&
-      error.boundary_index === index
-    );
-
-    for (const error of insertions) {
-      tokens += `
-        <span class="insertion">
-          增读<br>${escapeHtml(error.actual)}
-        </span>
-      `;
-    }
-
-    const found = errors.filter(error =>
-      Object.hasOwn(names, error.type) &&
-      error.char_index === index
-    );
-
-    const annotations = found.map(error => {
-      if (error.type === 'omission') {
-        return '<small>漏读<br>未读出</small>';
-      }
-
-      return `
-        <small>
-          ${names[error.type]}<br>
-          预期 ${escapeHtml(error.expected)}<br>
-          实际 ${escapeHtml(error.actual)}
-        </small>
-      `;
-    }).join('');
-
-    tokens += `
-      <div class="char ${found[0]?.type || ''}">
-        <small>${escapeHtml(pinyin[index])}</small>
-        <b>${escapeHtml(char)}</b>
-        ${annotations}
-      </div>
-    `;
-  });
-
-  const trailingInsertions = errors.filter(error =>
-    error.type === 'insertion' &&
-    error.boundary_index === characters.length
-  );
-
-  for (const error of trailingInsertions) {
-    tokens += `
-      <span class="insertion">
-        增读<br>${escapeHtml(error.actual)}
-      </span>
-    `;
+  let questionTokens = null;
+  if (Array.isArray(snapshot?.tokens)) {
+    questionTokens = snapshot.tokens;
+  } else if (!snapshot && characters.length === pinyin.length) {
+    // 兼容旧原型中题文与逐字拼音一一对应的数据。
+    questionTokens = characters.map((c, i) => ({
+      c, display_py: pinyin[i], display_start: i
+    }));
   }
-
+  const names = { tone: '声调偏误', substitution: '声韵母误读', omission: '漏读' };
+  let tokens = '';
+  const validPositions = questionTokens && questionTokens.every((token, index) =>
+    Number.isInteger(token.display_start) && token.display_start >= 0 &&
+    characters[token.display_start] === token.c &&
+    (index === 0 || token.display_start > questionTokens[index - 1].display_start)
+  );
+  if (!validPositions || questionTokens.length === 0) {
+    tokens = '<p>' + escapeHtml(displayText) + '</p>' +
+      '<p class="muted">缺少有效逐字位置数据，暂无法定位偏误。</p>';
+  } else {
+    const positions = new Map(questionTokens.map((token, index) =>
+      [token.display_start, { token, index }]));
+    const insertionHtml = boundary => errors.filter(error =>
+      error.type === 'insertion' && error.boundary_index === boundary
+    ).map(error => '<span class="insertion">增读<br>' +
+      escapeHtml(error.actual) + '</span>').join('');
+    characters.forEach((char, position) => {
+      const entry = positions.get(position);
+      if (!entry) {
+        tokens += '<span>' + escapeHtml(char) + '</span>';
+        return;
+      }
+      const { token, index } = entry;
+      tokens += insertionHtml(index);
+      const found = errors.filter(error =>
+        Object.hasOwn(names, error.type) && error.char_index === index);
+      const annotations = found.map(error => {
+        if (error.type === 'omission') return '<small>漏读<br>未读出</small>';
+        return '<small>' + names[error.type] + '<br>预期 ' +
+          escapeHtml(error.expected) + '<br>实际 ' + escapeHtml(error.actual) + '</small>';
+      }).join('');
+      tokens += '<div class="char ' + (found[0]?.type || '') + '"><small>' +
+        escapeHtml(token.display_py) + '</small><b>' + escapeHtml(char) +
+        '</b>' + annotations + '</div>';
+      // 句尾增读显示在最后一个发音字之后、尾部标点之前。
+      if (index === questionTokens.length - 1) tokens += insertionHtml(questionTokens.length);
+    });
+  }
   document.querySelector('#detailContent').innerHTML = `
     <div class="dialog-head">
       <div>
         <div class="eyebrow">
           录音核查 / ${escapeHtml(r.id)}
         </div>
-        <h2>${escapeHtml(r.text)}</h2>
+        <h2>${escapeHtml(displayText)}</h2>
       </div>
       <button id="close">关闭</button>
     </div>
