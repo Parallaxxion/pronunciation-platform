@@ -1,0 +1,4 @@
+management_demo.sqlite3
+management_demo.sqlite3-shm
+management_demo.sqlite3-wal
+__pycache__/

@@ -45,7 +45,7 @@ JSON 写操作必须有 `Idempotency-Key`（8—128 字符，建议 UUID）。�
 
 录音详情始终使用 `question_snapshot`，不要用当前题库覆盖录音时题文。`diagnosis_available=false` 表示尚未收到结果；`diagnosis.status` 仍为兼容值 pending，前端应优先显示“暂无诊断结果”。收到状态后 available 为 true，分别显示 pending/processing/failed/completed。只有 available=true 且 completed 且 errors=[] 才能显示“本次模型未检出偏误”。失败文本由管理端脱敏，不展示服务器路径和算法原始异常。
 
-偏误沿用四类：tone、substitution、omission 使用不含标点的 `char_index`；insertion 使用 0—N 的 `boundary_index`。同字多类偏误全部保留。字形显示使用 Unicode 码点索引；JavaScript 用 `Array.from(display_text)`。周佳怡的详情组件可直接采用这些字段，收到源码后按原界面基准整合。
+偏误沿用四类：tone、substitution、omission 使用不含标点的 `char_index`；insertion 使用 0—N 的 `boundary_index`。同字多类偏误全部保留。字形显示使用 Unicode 码点索引；JavaScript 用 `Array.from(display_text)`。周佳怡的详情组件可直接采用这些字段，源码已收到并合入原型，后续按原界面基准接真实API。
 
 ## 授权交接包
 
@@ -77,6 +77,6 @@ JSON 写操作必须有 `Idempotency-Key`（8—128 字符，建议 UUID）。�
 
 ## 交接给本组队员
 
-- 周佳怡：保持现有 UI；接 GET 分页、recording.question_snapshot、diagnosis_available/status；写操作带版本和幂等键；409 提示刷新，不能自动覆盖。她的 11.20 文档已覆盖状态和标点场景，源码与接口回归待合入。
+- 周佳怡：保持现有 UI；接 GET 分页、recording.question_snapshot、diagnosis_available/status；写操作带版本和幂等键；409 提示刷新，不能自动覆盖。她的 11.20 文档已覆盖状态和标点场景，源码已合入原型，13项渲染逻辑检查通过，真实接口回归待完成。
 - 王阳：复核已补齐的 reporting.py、verify_export.py、maintenance.py、部署模板和统计组件；导出只取有效记录，不接旧 `/api/export`。目标 null 不能显示为 0 或已达标。
 - 闫晓奕：维护后端权限、数据版本、导入和覆盖交接；与学生组确认自动同步接口及账号写权限，与命题组解决回写应用和版本规则。

@@ -1,0 +1,37 @@
+{
+  "received_on": "2026-11-23",
+  "wang_commit": "94d636254744ea0cf022feeea80638c15aac72a7",
+  "zhou_commit": "c81c5c53acbfbdfe3a719d85d61cbb1219e82d83",
+  "files": [
+    {
+      "path": "03_管理端/当前开发/prototype/static/app.js",
+      "source_sha256": "1f7f096d2139a0bb7fbd4a9855d3e034e0c7cf66c5bb78181dfad43d7900ce48",
+      "integrated_sha256": "0cc238858128da757d0677fe7ecab06ddadb26f82a440ccd0a316c5b5612d46e"
+    },
+    {
+      "path": "03_管理端/当前开发/statistics/.gitignore",
+      "source_sha256": "823da4cafe4a54d18e6b201fd6d355df1d5392548592138cb8f1b6f2df26efdf",
+      "integrated_sha256": "823da4cafe4a54d18e6b201fd6d355df1d5392548592138cb8f1b6f2df26efdf"
+    },
+    {
+      "path": "03_管理端/当前开发/statistics/README.md",
+      "source_sha256": "efef4cd47504a901c13feebf988b110a7b5805fac7752940ed6bab8011d63f2a",
+      "integrated_sha256": "efef4cd47504a901c13feebf988b110a7b5805fac7752940ed6bab8011d63f2a"
+    },
+    {
+      "path": "03_管理端/当前开发/statistics/server.py",
+      "source_sha256": "8d8d406f6ac8ffbf41e69ada856c6071007b80361385c7a0cb778b351c705d0a",
+      "integrated_sha256": "15e2db46ccb75a825aa8d356ea281992d779b9607a6db2ef57ccb89dc6828bc3"
+    },
+    {
+      "path": "03_管理端/当前开发/statistics/stats.html",
+      "source_sha256": "7ffa4bbafbae074b2dc13fc0acba29dc2642df273c66c1744f06eb69b78d6a5e",
+      "integrated_sha256": "ca44800580b300a3f849f6960d0493bb0a947afee70d48f75e2ac53caa9580f8"
+    },
+    {
+      "path": "03_管理端/当前开发/statistics/validate_data.py",
+      "source_sha256": "9fd95360a03fa28fcf82c3bd3d11a65d3be8e5e3e7fc5eb5ad99acf09173d135",
+      "integrated_sha256": "8597899cd5001117056ee8dd53dcc24dd885f8eb4ed5ada571bdd0e5009127e3"
+    }
+  ]
+}
