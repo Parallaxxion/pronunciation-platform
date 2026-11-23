@@ -44,6 +44,8 @@ def _is_han(c):
 
 
 def normalize_question(item, source='proposition'):
+    if not isinstance(item, dict):
+        raise ContractError('题目必须为对象')
     qid = item.get('question_id', item.get('id'))
     text = item.get('display_text', item.get('text'))
     level = item.get('level')
@@ -62,6 +64,8 @@ def normalize_question(item, source='proposition'):
         raise ContractError('tokens不能为空')
     normalized, cursor = [], 0
     for token in tokens:
+        if not isinstance(token, dict):
+            raise ContractError('token必须为对象')
         c = token.get('c', token.get('char'))
         py = token.get('py', token.get('pinyin'))
         if not isinstance(c,str) or len(c) != 1 or not _is_han(c):
@@ -75,9 +79,13 @@ def normalize_question(item, source='proposition'):
         raise ContractError('tokens遗漏题文末尾汉字')
     payload={'text':text,'tokens':[{k:t[k] for k in ('c','py')} for t in normalized]}
     revision=hashlib.sha256(json.dumps(payload,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
-    return {'question_id':qid,'question_version':item.get('question_version'),
+    result = {'question_id':qid,'question_version':item.get('question_version'),
             'content_revision':revision,'level':level,'display_text':text,'tokens':normalized,
             'grammar':item.get('grammar',[]),'status':item.get('status','unknown'),'source':source}
+    upstream_revision = item.get('source_content_revision') or item.get('content_revision')
+    if upstream_revision is not None:
+        result['source_content_revision'] = upstream_revision
+    return result
 
 
 def question_list(payload):
@@ -89,7 +97,9 @@ def question_list(payload):
 
 
 def normalize_diagnosis(data, question):
+    if not isinstance(data, dict): raise ContractError('诊断必须为对象')
     n=len(question['tokens'])
+    if not isinstance(data.get('status'),str): raise ContractError('诊断状态必须为字符串')
     status={'done':'completed','pending':'pending','processing':'processing','failed':'failed','completed':'completed'}.get(data.get('status'))
     if status is None: raise ContractError('未知诊断状态')
     rid=data.get('recording_id')
@@ -103,20 +113,24 @@ def normalize_diagnosis(data, question):
         if len(data['tokens']) != n: raise ContractError('诊断tokens长度与题目不同')
         errors=[]
         for i,t in enumerate(data['tokens']):
+            if not isinstance(t,dict): raise ContractError('诊断token必须为对象')
             if t.get('c') != question['tokens'][i]['c']: raise ContractError('诊断tokens字序不同')
             err=t.get('err')
             if err:
+                if not isinstance(err,dict): raise ContractError('偏误必须为对象')
+                if not isinstance(err.get('t'),str): raise ContractError('偏误类型必须为字符串')
                 kind={'tone':'tone','sf':'substitution','del':'omission'}.get(err.get('t'))
                 if not kind: raise ContractError('未知字符偏误类型')
                 errors.append({'type':kind,'char_index':i,'actual':err.get('py')})
         gaps=data.get('gap_errors',{})
         if not isinstance(gaps,dict): raise ContractError('gap_errors应为对象')
         for k,e in gaps.items():
-            if not re.fullmatch(r'0|[1-9][0-9]*',k) or e.get('t') != 'ins':
+            if not isinstance(k,str) or not isinstance(e,dict) or not re.fullmatch(r'0|[1-9][0-9]*',k) or e.get('t') != 'ins':
                 raise ContractError('无效的字间偏误')
             errors.append({'type':'insertion','boundary_index':int(k),'actual':e.get('py')})
     else: raise ContractError('已完成诊断缺少errors或tokens，不能判为无偏误')
     for e in errors:
+        if not isinstance(e,dict): raise ContractError('偏误必须为对象')
         kind=e.get('type')
         if kind not in ('tone','substitution','omission','insertion'): raise ContractError('未知偏误类型')
         key='boundary_index' if kind=='insertion' else 'char_index'
