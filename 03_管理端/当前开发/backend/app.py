@@ -20,21 +20,23 @@ from contracts import (Speaker, Question, Recording, SpeakerUpdate, QuestionUpda
                        normalize_diagnosis, ContractError)
 from store import Store, Missing, Conflict, encoded, KINDS
 from reporting import capture, statistics, export_bundle
+from synchronization import SyncBatch, apply_batch
 
 BASE = Path(__file__).resolve().parent
 bearer = HTTPBearer(auto_error=False)
 
 
-def load_accounts():
+def load_accounts(env=None):
     """Config stores only token hashes; raw access tokens never enter the database."""
-    config = os.environ.get('ADMIN_AUTH_FILE')
+    env = os.environ if env is None else env
+    config = env.get('ADMIN_AUTH_FILE')
     if config:
         accounts = json.loads(Path(config).read_text(encoding='utf-8'))
     else:
-        token = os.environ.get('ADMIN_TOKEN', '')
+        token = env.get('ADMIN_TOKEN', '')
         if len(token) < 32:
             raise RuntimeError('请设置至少 32 字符的 ADMIN_TOKEN 或 ADMIN_AUTH_FILE；服务默认拒绝无认证启动')
-        accounts = [{'actor': os.environ.get('ADMIN_ACTOR', 'local-admin'), 'role': 'admin',
+        accounts = [{'actor': env.get('ADMIN_ACTOR', 'local-admin'), 'role': 'admin',
                      'token_sha256': hashlib.sha256(token.encode()).hexdigest()}]
     if not isinstance(accounts, list) or not accounts:
         raise RuntimeError('管理员认证配置为空')
@@ -231,6 +233,16 @@ def create_app(data_dir=None, accounts=None):
                                            account['actor']) for item in getattr(body, kind)]
             return items
         return await mutate(request, account, batch)
+
+    @app.post('/api/v1/admin/integration/batches')
+    async def sync_batch(body: SyncBatch, request: Request, account=Depends(writer)):
+        return await mutate(request, account, lambda db: apply_batch(store, db, body, account['actor']))
+
+    @app.get('/api/v1/admin/integration/sources/{source_id}')
+    def sync_status(source_id: str, account=Depends(writer)):
+        with store.db() as db:
+            row = db.execute('SELECT * FROM sync_sources WHERE source_id=?', (source_id,)).fetchone()
+            return dict(row) if row else {'source_id': source_id, 'cursor': None, 'updated_at': None}
 
     @app.get('/api/v1/admin/actions')
     def actions(offset: int = Query(0, ge=0), limit: int = Query(50, ge=1, le=100), account=Depends(current)):

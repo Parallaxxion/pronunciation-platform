@@ -1,0 +1,10 @@
+[Unit]
+Description=Periodic coverage handoff after the receiving service is approved
+
+[Timer]
+OnBootSec=2min
+OnUnitInactiveSec=1min
+Unit=shengcai-coverage.service
+
+[Install]
+WantedBy=timers.target

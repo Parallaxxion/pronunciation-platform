@@ -2,6 +2,7 @@
 import argparse
 import json
 import os
+import time
 import uuid
 from pathlib import Path
 from urllib.parse import urlparse
@@ -17,24 +18,45 @@ def question_input(value):
 
 
 class Service:
-    def __init__(self, url, token='', transport=None):
+    def __init__(self, url, token='', transport=None, attempts=3, sleep=time.sleep):
         parsed = urlparse(url)
+        if parsed.port is not None and not 1 <= parsed.port <= 65535:
+            raise ValueError('服务端口无效')
         if (parsed.scheme not in ('http', 'https') or not parsed.hostname or parsed.username or parsed.password
                 or parsed.query or parsed.fragment or parsed.path.rstrip('/')):
             raise ValueError('服务地址应为不带路径、凭证和查询参数的 HTTP(S) 地址')
         if parsed.scheme != 'https' and parsed.hostname not in ('127.0.0.1', 'localhost', '::1', 'testserver'):
             raise ValueError('非本机服务必须通过 HTTPS 访问')
-        self.client = httpx.Client(base_url=url.rstrip('/'), timeout=20, follow_redirects=False,
+        self.attempts, self.sleep = attempts, sleep
+        self.client = httpx.Client(base_url=url.rstrip('/'), timeout=20, follow_redirects=False, trust_env=False,
                                    headers={'Authorization': 'Bearer '+token} if token else {}, transport=transport)
 
-    def request(self, method, path, **kwargs):
+    def request(self, method, path, max_bytes=8*1024*1024, **kwargs):
+        parsed = urlparse(path)
+        if not path.startswith('/') or path.startswith('//') or parsed.scheme or parsed.netloc or parsed.fragment or '\\' in path:
+            raise ValueError('接口路径必须位于已配置的服务内')
         if method != 'GET':
-            kwargs.setdefault('headers', {})['Idempotency-Key'] = str(uuid.uuid4())
-        response = self.client.request(method, path, **kwargs)
-        if not response.is_success:
-            # Avoid logging upstream exception text, URLs or credentials.
-            raise RuntimeError(f'上游 {method} {path.split("?")[0]} 返回 HTTP {response.status_code}')
-        return response
+            kwargs.setdefault('headers', {}).setdefault('Idempotency-Key', str(uuid.uuid4()))
+        for attempt in range(self.attempts):
+            try:
+                with self.client.stream(method, path, **kwargs) as response:
+                    if response.is_success:
+                        content = bytearray()
+                        for chunk in response.iter_bytes():
+                            content.extend(chunk)
+                            if len(content) > max_bytes:
+                                raise RuntimeError('上游响应超过大小限制')
+                        headers = {k: v for k, v in response.headers.items()
+                                   if k.lower() not in ('content-encoding', 'content-length', 'transfer-encoding')}
+                        return httpx.Response(response.status_code, headers=headers,
+                                              content=bytes(content), request=response.request)
+                    status = response.status_code
+                if status not in (429, 502, 503, 504) or attempt == self.attempts-1:
+                    raise RuntimeError(f'上游 {method} {path.split("?")[0]} 返回 HTTP {status}')
+            except httpx.TransportError:
+                if attempt == self.attempts-1:
+                    raise RuntimeError('服务连接失败或超时；未确认请求结果，请使用原批次重试') from None
+            self.sleep(min(2**attempt * .25, 2))
 
     def close(self):
         self.client.close()

@@ -1,0 +1,21 @@
+[Unit]
+Description=Deliver one frozen management coverage snapshot
+After=shengcai-management.service
+Requires=shengcai-management.service
+
+[Service]
+Type=oneshot
+User=shengcai
+Group=shengcai
+WorkingDirectory=/opt/shengcai/current/03_管理端/当前开发/backend
+EnvironmentFile=/etc/shengcai/integration.env
+Environment=PYTHONUTF8=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/opt/shengcai/venv/bin/python sync_worker.py --admin http://127.0.0.1:8766 coverage --proposition ${PROPOSITION_BASE_URL} --state-file /var/lib/shengcai/integration/coverage.sqlite3
+TimeoutStartSec=180
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/shengcai/integration

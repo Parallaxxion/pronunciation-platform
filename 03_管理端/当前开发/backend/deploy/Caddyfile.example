@@ -1,7 +1,7 @@
 # 将域名替换为已分配并正确解析到服务器的真实域名。
 management.example.org {
     request_body {
-        max_size 21MB
+        max_size 23MB
     }
     reverse_proxy 127.0.0.1:8766
 }

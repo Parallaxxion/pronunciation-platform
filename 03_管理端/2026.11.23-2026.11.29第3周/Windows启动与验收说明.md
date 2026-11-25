@@ -45,7 +45,7 @@ node --test "03_管理端/当前开发/web/test.mjs" "03_管理端/当前开发/
 .\.venv\Scripts\python.exe "03_管理端/当前开发/web/smoke_http.py" --base http://127.0.0.1:8891 --token-file "03_管理端/当前开发/local-data/windows-qa-01/access-token.txt" --output "03_管理端/当前开发/local-data/windows-qa-01/evidence/http-smoke.json"
 ```
 
-本次基线为 104 项 Python 用例及 13 个子检查、10 项 Node 用例；后续新增用例时以实际输出为准。HTTP 脚本创建测试账号、上传合成静音、在隔离题库执行校验和发布，只能用于本机演示环境。其 JSON 中七个等级的 `validate/stats/publish` 也要逐项核对为成功；脚本完成本身不能代替业务结果检查。
+11 月 25 日晚基线为 123 项 Python 用例及 13 个子检查、10 项 Node 用例；后续新增用例时以实际输出为准。HTTP 脚本创建测试账号、上传合成静音、在隔离题库执行校验和发布，只能用于本机演示环境。其 JSON 中七个等级的 `validate/stats/publish` 也要逐项核对为成功；脚本完成本身不能代替业务结果检查。
 
 ## 4. Edge 和 Chrome 各检查一遍
 

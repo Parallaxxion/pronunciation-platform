@@ -32,3 +32,6 @@ jobs:
       - run: node --version
       - run: node --check "03_管理端/当前开发/web/app.mjs"
       - run: node --test "03_管理端/当前开发/web/test.mjs" "03_管理端/当前开发/web-components/test.mjs"
+      - name: Rehearse HTTP handoff and backup recovery
+        if: runner.os == 'Linux'
+        run: python "03_管理端/当前开发/backend/tests/rehearse_handoff.py" --output local-data/ci-handoff.json

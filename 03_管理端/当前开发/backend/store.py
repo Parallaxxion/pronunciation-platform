@@ -70,6 +70,8 @@ class Store:
               payload TEXT NOT NULL, action_id INTEGER NOT NULL);
             ''')
             db.execute('INSERT OR IGNORE INTO settings VALUES(?,?)', ('instance', uuid.uuid4().hex))
+            from synchronization import SCHEMA
+            db.executescript(SCHEMA)
 
     @contextmanager
     def db(self, write=False):
