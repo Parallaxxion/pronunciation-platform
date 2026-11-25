@@ -1,0 +1,10 @@
+[Unit]
+Description=Periodic student feed handoff after protocol agreement
+
+[Timer]
+OnBootSec=2min
+OnUnitInactiveSec=1min
+Unit=shengcai-student-sync.service
+
+[Install]
+WantedBy=timers.target

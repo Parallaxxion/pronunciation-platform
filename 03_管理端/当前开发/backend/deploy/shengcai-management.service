@@ -1,0 +1,31 @@
+[Unit]
+Description=Shengcai management API and unified frontend
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=shengcai
+Group=shengcai
+WorkingDirectory=/opt/shengcai/current/03_管理端/当前开发/backend
+EnvironmentFile=/etc/shengcai/management.env
+Environment=PYTHONUTF8=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStartPre=/opt/shengcai/venv/bin/python deploy/preflight.py
+ExecStart=/opt/shengcai/venv/bin/python run.py --port 8766
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/shengcai/management
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

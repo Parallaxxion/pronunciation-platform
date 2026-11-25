@@ -1,0 +1,120 @@
+{
+  "$defs": {
+    "SyncEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "event_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$",
+          "title": "Event Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "speakers",
+            "questions",
+            "recordings"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "entity_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$",
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "source_version": {
+          "maximum": 9223372036854775807,
+          "minimum": 1,
+          "title": "Source Version",
+          "type": "integer"
+        },
+        "operation": {
+          "default": "upsert",
+          "enum": [
+            "upsert",
+            "delete",
+            "restore"
+          ],
+          "title": "Operation",
+          "type": "string"
+        },
+        "data": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Data"
+        }
+      },
+      "required": [
+        "event_id",
+        "kind",
+        "entity_id",
+        "source_version"
+      ],
+      "title": "SyncEvent",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "source_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$",
+      "title": "Source Id",
+      "type": "string"
+    },
+    "batch_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$",
+      "title": "Batch Id",
+      "type": "string"
+    },
+    "cursor": {
+      "anyOf": [
+        {
+          "maxLength": 512,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Cursor"
+    },
+    "next_cursor": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Next Cursor",
+      "type": "string"
+    },
+    "events": {
+      "items": {
+        "$ref": "#/$defs/SyncEvent"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Events",
+      "type": "array"
+    }
+  },
+  "required": [
+    "source_id",
+    "batch_id",
+    "next_cursor",
+    "events"
+  ],
+  "title": "SyncBatch",
+  "type": "object"
+}

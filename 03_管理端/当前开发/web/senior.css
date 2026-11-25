@@ -1,0 +1,26 @@
+/* Derived visual direction: senior's provided V2 demo, not its simulated business logic. */
+body[data-theme="senior"]{background:#f2f6fa;color:#1d2b3a}
+body[data-theme="senior"] aside{position:static;width:100%;padding:24px 5vw 18px;background:linear-gradient(120deg,#0a2e6e,#014da5);color:white}
+body[data-theme="senior"] .brand{font-size:23px;letter-spacing:1px}
+body[data-theme="senior"] .brand span{background:#ffffff24;color:#fff;border:1px solid #ffffff40}
+body[data-theme="senior"] aside .caption{color:#c4d7f4;margin:12px 0 20px;font-size:13px}
+body[data-theme="senior"] .section-label,body[data-theme="senior"] .aside-bottom{display:none}
+body[data-theme="senior"] nav{display:flex;flex-wrap:wrap;gap:8px;margin:0;overflow:visible}
+body[data-theme="senior"] nav a{position:relative;border:1px solid #ffffff29;background:#ffffff14;color:#d2e0f5;padding:10px 18px;border-radius:999px;font-size:14px}
+body[data-theme="senior"] nav a.active{background:#ffffff3d;border-color:#ffffff8c;color:white;font-weight:700;box-shadow:0 2px 12px #02143c47}
+body[data-theme="senior"] nav a.active::after{content:'';position:absolute;width:20px;height:3px;background:#ffc53d;bottom:3px;left:calc(50% - 10px);border-radius:3px}
+body[data-theme="senior"] main{margin:0 auto;max-width:1440px;padding:28px 32px 60px}
+body[data-theme="senior"] h1,body[data-theme="senior"] h2{color:#0a2e6e}
+body[data-theme="senior"] .panel,body[data-theme="senior"] .metric,body[data-theme="senior"] .card{border-color:#c8dde2;box-shadow:0 1px 4px #0a2e6e0f;border-radius:10px}
+body[data-theme="senior"] .primary{background:#014da5!important}
+body[data-theme="senior"] .record-button{background:#014da5}
+body[data-theme="senior"] .record-button.recording{background:#c00000}
+body[data-theme="senior"] .card .number,body[data-theme="senior"] .reading rt,body[data-theme="senior"] .link{color:#014da5}
+body[data-theme="senior"] .badge,body[data-theme="senior"] th,body[data-theme="senior"] pre,body[data-theme="senior"] .audio{background:#eef3fa;color:#0a2e6e}
+body[data-theme="senior"] .notice{background:#eef3fa;color:#355479;border:1px solid #c8dde2;border-left:4px solid #014da5}
+body[data-theme="senior"] .metric strong{color:#003399}
+body[data-theme="senior"] progress{accent-color:#014da5}
+body[data-theme="senior"] input,body[data-theme="senior"] select,body[data-theme="senior"] textarea{border-color:#c8dde2;color:#1d2b3a}
+body[data-theme="senior"] .hero{padding-top:18px}
+body[data-theme="senior"] button:focus-visible,body[data-theme="senior"] a:focus-visible{outline-color:#ffc53d}
+@media(max-width:850px){body[data-theme="senior"] aside{padding:20px}body[data-theme="senior"] aside .caption{display:block}body[data-theme="senior"] main{padding:22px}body[data-theme="senior"] nav a{padding:8px 12px}}

@@ -1,0 +1,158 @@
+{
+  "level": 5,
+  "generated_at": "2026-11-24",
+  "source_pdf": "国际中文教育中文水平等级标准.pdf",
+  "source_pdf_sha256": "e451fdf0899d9267bbd122db66e7e75bdd2851ad1e6732e47b6e960290d73a63",
+  "source_pdf_pages": 260,
+  "checks": [
+    {
+      "name": "字表新增/累计",
+      "status": "pass",
+      "detail": "新增 300，累计 1500；各级无重复、零重叠"
+    },
+    {
+      "name": "语法点",
+      "status": "pass",
+      "detail": "五级新增 71 点，累计 357 点"
+    },
+    {
+      "name": "词表",
+      "status": "pass",
+      "detail": "1071 条 / 1067 词头；来源 HSK 3.0 转录 CSV 五级行"
+    },
+    {
+      "name": "正式题库",
+      "status": "pass",
+      "detail": "967 题，L5-001—L5-967 连续无缺号"
+    },
+    {
+      "name": "规则校验",
+      "status": "pass",
+      "detail": "合格 967，不合格 0，提示 0，重复 0"
+    },
+    {
+      "name": "累计字覆盖",
+      "status": "pass",
+      "detail": "1500/1500（100%）"
+    },
+    {
+      "name": "词汇严格覆盖",
+      "status": "pass",
+      "detail": "1067/1067（100%），寄生 0，从未出现 0"
+    },
+    {
+      "name": "语法覆盖",
+      "status": "pass",
+      "detail": "71/71（100%），每点 ≥2 次"
+    },
+    {
+      "name": "拼音变调",
+      "status": "pass",
+      "detail": "466 题变调；54 处例外修正；967/967 音节对齐，DB 0 差异"
+    },
+    {
+      "name": "人工复核",
+      "status": "pass",
+      "detail": "48 项记录；P0 = 0；P1 2 项（G5-32 宽泛、词表未再抽样）"
+    },
+    {
+      "name": "发布与抽题",
+      "status": "pass",
+      "detail": "publish 967 published；API validate/stats 通过；random/recommend 通过"
+    },
+    {
+      "name": "语义标注细化",
+      "status": "warn",
+      "detail": "G5-32 兜底 594/967（61.4%），建议教学组后续细化"
+    },
+    {
+      "name": "二至四级回归",
+      "status": "pass",
+      "detail": "二级 641/600、三级 986/900、四级 1339/1200；未覆盖 0，越界警告 0（2026-11-24 复核）"
+    }
+  ],
+  "summary": {
+    "pass": 12,
+    "warn": 1,
+    "fail": 0
+  },
+  "bank": {
+    "items": 967,
+    "char_covered": 1500,
+    "vocab_covered": 1067,
+    "vocab_total": 1067,
+    "grammar_covered": 71,
+    "published": 967
+  },
+  "manual_review": {
+    "issues_found": 48,
+    "p0_open": 0,
+    "p1_open": 2
+  },
+  "follow_ups": [
+    "G5-32 兜底 594 题，建议细化语法点或改用 kind=vocabulary",
+    "词表未再对照扫描版 PDF 抽样"
+  ],
+  "files": {
+    "manual_review.json": {
+      "bytes": 22749,
+      "sha256": "50dace3e610212a5ae740f386f2d435db3a096f47ac77a1fb85ae87847405fd5"
+    },
+    "五级官方字表.json": {
+      "bytes": 43477,
+      "sha256": "f026c447cac7ce7458dbf7bcd6e555c9e299f6993bd50fbd2a648559900a953d"
+    },
+    "五级官方字表.txt": {
+      "bytes": 18249,
+      "sha256": "f84a034da4660bf95be00a9ff45dc221903067f6586206a012104c9590fa3be0"
+    },
+    "五级词表.json": {
+      "bytes": 169341,
+      "sha256": "c686b06b85d6c222f5ecbf07e5963a9b752bf6b0c1e7ef61c97cc5c7f570eec3"
+    },
+    "五级语法总结.md": {
+      "bytes": 11113,
+      "sha256": "9e32e45992d786f296adb21db8359cfc04747a699ebc091d538089664cb747c8"
+    },
+    "五级语法点.json": {
+      "bytes": 26422,
+      "sha256": "9ff8d3b97084577439d57f34407681ad646a842e59e481fb9d9d80a9e7c5cdb3"
+    },
+    "五级题库.json": {
+      "bytes": 235660,
+      "sha256": "50055450c6df8d2c3954e195136c76b89b3122837fd325439835ecda0dc39d13"
+    },
+    "人工复核执行记录_2026-11-24.md": {
+      "bytes": 3435,
+      "sha256": "d319dbb12922af9d4f43d629f59552e55d29293cc9016c2e00f0692fad06c930"
+    },
+    "人工复核清单_2026-11-24.md": {
+      "bytes": 1544,
+      "sha256": "e3268a2af44fa09f58e635e324d781493869fb96753251ac60afedf4c4a89a89"
+    },
+    "整理校验.json": {
+      "bytes": 4590,
+      "sha256": "421cf70799cda0bea0a8d370ec77f5045a99c97e06a575f181aea5af73467fe3"
+    },
+    "校验报告.md": {
+      "bytes": 188,
+      "sha256": "054aedc6f0224672a8ef35974972bd711d48b04296cbceb4394d9dff5c80ace4"
+    },
+    "统计报告.json": {
+      "bytes": 6133,
+      "sha256": "17412f913d02a6baefc8d06d27926d264fbdbfb3026353e3852885348cf94e96"
+    },
+    "统计报告.md": {
+      "bytes": 3969,
+      "sha256": "750e94b3c40bd2b68a04557af79f3191ce452b16f4abdc4bef9a432843e42bf5"
+    },
+    "词汇严格口径核查_2026-11-24.md": {
+      "bytes": 2269,
+      "sha256": "2d8a14d1f6c0e6238ef96a64591c7988a2433691576e8def86072a8a162cd49a"
+    },
+    "说明.md": {
+      "bytes": 4039,
+      "sha256": "08d554e7e899ce47318344633868ca9c400e998305887cf0be51993fed66ab11"
+    }
+  }
+}
