@@ -310,9 +310,11 @@ def create_app(data_dir=None, accounts=None):
                       request: Request, account=Depends(writer)):
         return await mutate(request, account, lambda db: store.set_deleted(db, kind, entity_id, body.expected_version, False, account['actor']))
 
+    from portal import install
+    install(app, current, writer)
+
     @app.get('/')
     def home():
-        return {'service':'发音采集管理端 API', 'version':'0.3.0', 'docs':'/api/docs',
-                'web':'统一 Web 沿用第一周界面，三组接口齐全后整合'}
+        return FileResponse(BASE.parent / 'web' / 'index.html')
 
     return app

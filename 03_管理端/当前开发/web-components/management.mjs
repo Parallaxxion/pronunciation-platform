@@ -47,7 +47,7 @@ export function statisticsView(stats, coverage=stats.coverage) {
 }
 
 export class ManagementClient {
-  constructor(fetcher=globalThis.fetch) {this.fetcher=fetcher;}
+  constructor(fetcher=(...args)=>globalThis.fetch(...args)) {this.fetcher=fetcher;}
   async request(path,{method='GET',body,token}={}) {
     const headers={};
     if (token) headers.Authorization=`Bearer ${token}`;

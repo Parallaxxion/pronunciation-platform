@@ -1,0 +1,10 @@
+-r ../backend/requirements-dev.txt
+pypinyin==0.55.0
+sqlalchemy==2.1.9
+python-dotenv==1.2.4
+pwdlib==0.4.2
+argon2-cffi==25.1.0
+email-validator==2.4.0
+python-multipart==0.0.34
+imageio-ffmpeg==0.8.1
+# 算法模型不随演示环境自动下载；按学生组交付的模型配置另行部署。

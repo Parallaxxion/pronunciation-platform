@@ -35,3 +35,9 @@ test('权限错误必须显式处理',async()=>{
  await assert.rejects(()=>client.list('recordings'),/登录已过期/);
  await assert.rejects(()=>client.exportData(),/登录已过期/);
 });
+test('默认 fetch 必须保留浏览器 Window 接收者',async()=>{
+ const original=globalThis.fetch;
+ globalThis.fetch=function(){assert.equal(this,globalThis);return Promise.resolve(new Response('{"items":[],"total":0}'))};
+ try{assert.equal((await new ManagementClient().list('recordings')).total,0)}
+ finally{globalThis.fetch=original}
+});

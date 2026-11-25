@@ -1,8 +1,8 @@
 # 管理端当前开发
 
-第一周 Web 基准保留在 `prototype/`，本次新增核心管理 API 位于 [backend](backend/README.md)。按 11月23日确认，三组接口齐全后再整合完整 Web。历史 PPT、讲稿、需求、分工和验证材料在[第一周归档](../2026.11.09-2026.11.15第1周/README.md)，不在开发目录重复维护。
+三端统一 Web 位于 [web](web/README.md)，现已提供第一周青绿风格和师兄学院蓝风格，两版共用实际业务接口。第一周原型保留在 `prototype/`，核心管理 API 位于 [backend](backend/README.md)。按会后要求，前端、接口与部署测试并行推进。历史 PPT、讲稿、需求、分工和验证材料在[第一周归档](../2026.11.09-2026.11.15第1周/README.md)，不在开发目录重复维护。
 
-在总仓库根目录运行：
+优先按 [三端 Web 启动说明](web/README.md) 运行。以下仅用于回看第一周原型：
 
 ```bash
 python 03_管理端/当前开发/prototype/server.py --open-browser

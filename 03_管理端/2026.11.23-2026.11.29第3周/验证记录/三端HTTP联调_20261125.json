@@ -1,0 +1,201 @@
+{
+  "run_at": "2026-11-25T11:41:59.616267+00:00",
+  "scope": "isolated_loopback_http",
+  "management": [
+    {
+      "check": "未登录拦截与 HttpOnly 管理会话登录",
+      "result": "pass"
+    },
+    {
+      "check": "双风格资源与邮箱验证入口",
+      "result": "pass"
+    },
+    {
+      "check": "核查备注、旧版本冲突与撤销恢复",
+      "result": "pass"
+    },
+    {
+      "check": "软删除、恢复与统计一致",
+      "result": "pass"
+    },
+    {
+      "check": "受保护音频与 Range 分段回放",
+      "result": "pass"
+    },
+    {
+      "check": "完整导出、逐文件 SHA256 和统计条数",
+      "result": "pass"
+    },
+    {
+      "check": "跨站写入拒绝",
+      "result": "pass"
+    }
+  ],
+  "student": [
+    {
+      "check": "注册、未验证拦截、开发邮箱验证、学生会话",
+      "result": "pass"
+    },
+    {
+      "check": "实际取题、合成 WAV 上传转码与同编号重试去重",
+      "result": "pass"
+    },
+    {
+      "check": "统一学生入口不开放诊断结果",
+      "result": "pass"
+    },
+    {
+      "check": "学生登出后身份失效",
+      "result": "pass"
+    }
+  ],
+  "proposition": [
+    {
+      "level": 1,
+      "validate": {
+        "http_status": 200,
+        "verdict": "pass",
+        "total": 425,
+        "valid": 425,
+        "invalid": 0
+      },
+      "stats": {
+        "http_status": 200,
+        "verdict": "pass",
+        "failed_checks": []
+      },
+      "publish": {
+        "http_status": 200,
+        "published_count": 425,
+        "message": "等级 1 已发布 425 题（仅 published 题目可被抽取）"
+      }
+    },
+    {
+      "level": 2,
+      "validate": {
+        "http_status": 200,
+        "verdict": "pass",
+        "total": 645,
+        "valid": 645,
+        "invalid": 0
+      },
+      "stats": {
+        "http_status": 200,
+        "verdict": "pass",
+        "failed_checks": []
+      },
+      "publish": {
+        "http_status": 200,
+        "published_count": 645,
+        "message": "等级 2 已发布 645 题（仅 published 题目可被抽取）"
+      }
+    },
+    {
+      "level": 3,
+      "validate": {
+        "http_status": 200,
+        "verdict": "pass",
+        "total": 986,
+        "valid": 986,
+        "invalid": 0
+      },
+      "stats": {
+        "http_status": 200,
+        "verdict": "pass",
+        "failed_checks": []
+      },
+      "publish": {
+        "http_status": 200,
+        "published_count": 986,
+        "message": "等级 3 已发布 986 题（仅 published 题目可被抽取）"
+      }
+    },
+    {
+      "level": 4,
+      "validate": {
+        "http_status": 200,
+        "verdict": "pass",
+        "total": 1341,
+        "valid": 1341,
+        "invalid": 0
+      },
+      "stats": {
+        "http_status": 200,
+        "verdict": "pass",
+        "failed_checks": []
+      },
+      "publish": {
+        "http_status": 200,
+        "published_count": 1341,
+        "message": "等级 4 已发布 1341 题（仅 published 题目可被抽取）"
+      }
+    },
+    {
+      "level": 5,
+      "validate": {
+        "http_status": 200,
+        "verdict": "pass",
+        "total": 967,
+        "valid": 967,
+        "invalid": 0
+      },
+      "stats": {
+        "http_status": 200,
+        "verdict": "pass",
+        "failed_checks": []
+      },
+      "publish": {
+        "http_status": 200,
+        "published_count": 967,
+        "message": "等级 5 已发布 967 题（仅 published 题目可被抽取）"
+      }
+    },
+    {
+      "level": 6,
+      "validate": {
+        "http_status": 200,
+        "verdict": "pass",
+        "total": 1659,
+        "valid": 1659,
+        "invalid": 0
+      },
+      "stats": {
+        "http_status": 200,
+        "verdict": "pass",
+        "failed_checks": []
+      },
+      "publish": {
+        "http_status": 200,
+        "published_count": 1659,
+        "message": "等级 6 已发布 1659 题（仅 published 题目可被抽取）"
+      }
+    },
+    {
+      "level": 7,
+      "validate": {
+        "http_status": 200,
+        "verdict": "pass",
+        "total": 1675,
+        "valid": 1675,
+        "invalid": 0
+      },
+      "stats": {
+        "http_status": 200,
+        "verdict": "pass",
+        "failed_checks": []
+      },
+      "publish": {
+        "http_status": 200,
+        "published_count": 1675,
+        "message": "等级 7 已发布 1675 题（仅 published 题目可被抽取）"
+      }
+    }
+  ],
+  "excluded": [
+    "真实录音算法效果",
+    "麦克风设备",
+    "跨浏览器与手机",
+    "正式 HTTPS 部署",
+    "学生录音自动同步管理库"
+  ]
+}
