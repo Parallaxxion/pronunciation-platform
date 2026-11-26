@@ -1,0 +1,15 @@
+{
+  "kind": "validate",
+  "level": 1,
+  "requested_level": 1,
+  "merged_into": null,
+  "run_at": "2026-11-26T14:37:56+08:00",
+  "total": 425,
+  "valid": 425,
+  "invalid": 0,
+  "dup_ids": [],
+  "dup_texts": [],
+  "verdict": "pass",
+  "bad_items": [],
+  "saved_to": "reports\\level1\\api_validate_20261126_143756_050265.json"
+}

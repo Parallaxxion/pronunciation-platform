@@ -1,0 +1,27 @@
+{
+  "level": 6,
+  "reviewed_at": "2026-11-24",
+  "reviewer": "AI 助手（规则全量审计 + 抽检，待教学组复核）",
+  "method": "接入 HSK3.0 六级词表并按严格口径覆盖（1134/1134）；对 1657 题做 A—E 复核；针对 G6-38 兜底集中度做专项整改：结构可判定的重标 7 题、双句保留 G6-54 124 题、纯词汇跟读题 1328 题改 kind=vocabulary 且不挂语法点、新增 2 题承担 G6-38。",
+  "sample_size": 1657,
+  "issues_found": 6,
+  "issues": [
+    {"id": "L6-150", "severity": "P1", "status": "resolved", "text": "气球爆了，孩子吓哭了。", "before": {"grammar": ["G6-41"]}, "after": {"grammar": ["G6-54"]}, "problem": "无被动标记", "fix": "改标 G6-54"},
+    {"id": "L6-285", "severity": "P1", "status": "resolved", "text": "灯灭了。", "before": {"grammar": ["G6-41"]}, "after": {"grammar": ["G6-38"]}, "problem": "单句无被动结构", "fix": "改标 G6-38"},
+    {"id": "L6-394", "severity": "P1", "status": "resolved", "text": "气球炸了。", "before": {"grammar": ["G6-41"]}, "after": {"grammar": ["G6-38"]}, "problem": "单句无被动结构", "fix": "改标 G6-38"},
+    {"id": "L6-1560", "severity": "P1", "status": "resolved", "text": "联赛由股东赞助。", "before": {"grammar": ["G6-41"]}, "after": {"grammar": ["G6-38"]}, "problem": "「由」不在 G6-41 标记集合", "fix": "改标 G6-38（后续并入词汇跟读）"},
+    {"id": "L6-1208", "severity": "P1", "status": "resolved", "text": "消息传出去了。", "before": {"grammar": ["G6-39"]}, "after": {"grammar": ["G6-38"]}, "problem": "「出去」非状态趋向补语", "fix": "改标 G6-38（后续并入词汇跟读）"},
+    {"id": "L6-1591", "severity": "P1", "status": "resolved", "text": "走私货赶上了检查。", "before": {"grammar": ["G6-39"]}, "after": {"grammar": ["G6-38"]}, "problem": "「赶上」非状态趋向补语", "fix": "改标 G6-38（后续并入词汇跟读）"}
+  ],
+  "confirmed": [
+    {"note": "A 项：pattern 未命中 0 / 1657"},
+    {"note": "B 项专项整改：G6-38 由 1329 → 2；最大集中度 G6-54=124（7.5%）；67 点全部 ≥2"},
+    {"note": "词汇：严格覆盖 1134/1134，寄生 0；常规 1134/1134"},
+    {"note": "C 项词表溯源：1140 条与 CSV 一致，抽样 8 条通过"},
+    {"note": "D 项拼音：一/不 变调与儿化 r 完成；仅「唯一/如一」保留 yī（正确）；9 处儿化 r；音节对齐 0 异常"},
+    {"note": "E 项规模：1657 题，处于 [1400,1800]"}
+  ],
+  "p0_open": 0,
+  "p1_open": 0,
+  "residual": "1328 题为纯词汇跟读题（kind=vocabulary），按项目设计不绑定语法点，语法点由 329 道结构题承担，67 点每点 ≥2；G6-54 124 题为双句二重复句，属真实结构。六级采用语境拼音（一/不 变调、儿化 r）；抽查发现工作树中一级、二级、四级、五级仍部分保留本调与 ér，若“一至五级已改语境拼音”为另一份未推送改动，以该版本为准。"
+}
