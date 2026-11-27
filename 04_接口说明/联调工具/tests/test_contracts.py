@@ -3,8 +3,8 @@ from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from integration.adapters import *
 ROOT=Path(__file__).resolve().parents[3]
-Q=json.loads((ROOT/'04_接口说明/示例/question-source.json').read_text())
-D=json.loads((ROOT/'04_接口说明/示例/diagnosis-source.json').read_text())
+Q=json.loads((ROOT/'04_接口说明/示例/question-source.json').read_text(encoding='utf-8'))
+D=json.loads((ROOT/'04_接口说明/示例/diagnosis-source.json').read_text(encoding='utf-8'))
 class AdapterTests(unittest.TestCase):
  def test_tone_styles(self):
   for a,b in [('wǒ','wo3'),('WO3','wo3'),('nǚ','nv3'),('nu:3','nv3'),('lüè','lve4'),('ma0','ma5'),('men','men5'),('ḿ','m2')]:
@@ -54,9 +54,9 @@ class AdapterTests(unittest.TestCase):
  def test_unknown_question(self):
   with self.assertRaises(ContractError):coverage([normalize_question(Q)],[{'recording_id':'r','question_id':'wrong','speaker_id':'s'}])
  def test_ui_baseline_bytes(self):
-  for name,digest in json.loads((ROOT/'05_相关材料/统一前端/baseline.sha256.json').read_text()).items():self.assertEqual(hashlib.sha256((ROOT/'05_相关材料/统一前端/baseline'/name).read_bytes()).hexdigest(),digest)
+  for name,digest in json.loads((ROOT/'05_相关材料/统一前端/baseline.sha256.json').read_text(encoding='utf-8')).items():self.assertEqual(hashlib.sha256((ROOT/'05_相关材料/统一前端/baseline'/name).read_bytes()).hexdigest(),digest)
  def test_wav_manifest(self):
-  for line in (ROOT/'05_相关材料/算法交接样例/manifest.jsonl').read_text().splitlines():
+  for line in (ROOT/'05_相关材料/算法交接样例/manifest.jsonl').read_text(encoding='utf-8').splitlines():
    r=json.loads(line);p=ROOT/'05_相关材料/算法交接样例'/r['audio_path'];self.assertIsNone(r['gold_errors']);self.assertEqual(r['dataset_role'],'format_integration_only');self.assertEqual(hashlib.sha256(p.read_bytes()).hexdigest(),r['sha256'])
    with wave.open(str(p),'rb') as w:self.assertEqual((w.getframerate(),w.getnchannels(),w.getsampwidth()),(16000,1,2));self.assertGreater(w.getnframes(),0)
 if __name__=='__main__':unittest.main()
