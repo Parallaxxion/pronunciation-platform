@@ -5,6 +5,7 @@ import json
 import os
 import shutil
 import sqlite3
+from contextlib import closing
 from pathlib import Path
 
 from store import Store, encoded, now
@@ -17,7 +18,7 @@ def digest_file(path):
 
 def check_backup(folder):
     folder = Path(folder)
-    manifest = json.loads((folder/'backup.json').read_text())
+    manifest = json.loads((folder/'backup.json').read_text(encoding='utf-8'))
     if manifest['schema'] != 'management-backup-v1':
         raise ValueError('备份版本不支持')
     expected = manifest['files']
@@ -29,7 +30,7 @@ def check_backup(folder):
             raise ValueError('备份清单含非法路径')
         if digest_file(folder/name) != digest:
             raise ValueError('备份校验失败：'+name)
-    with sqlite3.connect(f'{(folder/"management.sqlite3").resolve().as_uri()}?mode=ro', uri=True) as db:
+    with closing(sqlite3.connect(f'{(folder/"management.sqlite3").resolve().as_uri()}?mode=ro', uri=True)) as db:
         if db.execute('PRAGMA integrity_check').fetchone()[0] != 'ok' or db.execute('PRAGMA foreign_key_check').fetchall():
             raise ValueError('数据库完整性校验失败')
         for digest, size in db.execute('SELECT sha256,size FROM blobs'):
@@ -51,11 +52,11 @@ def backup(data_dir, destination):
         store = Store(root)
         with store.db() as db:
             blobs = db.execute('SELECT sha256 FROM blobs').fetchall()
-            with sqlite3.connect(destination/'management.sqlite3') as output:
+            with closing(sqlite3.connect(destination/'management.sqlite3')) as output:
                 db.backup(output)
             for row in blobs:
                 shutil.copyfile(store.audio/row['sha256'], destination/'audio'/row['sha256'])
-        files = {str(path.relative_to(destination)):digest_file(path)
+        files = {path.relative_to(destination).as_posix():digest_file(path)
                  for path in destination.rglob('*') if path.is_file()}
         for name in files: os.chmod(destination/name, 0o600)
         (destination/'backup.json').write_text(encoded({'schema':'management-backup-v1',
