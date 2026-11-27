@@ -3,6 +3,37 @@ import assert from 'node:assert/strict';
 import {detailView,statisticsView,ManagementClient} from './management.mjs';
 
 const fixture={question_snapshot:{display_text:'我，学汉语。',tokens:[{c:'我',py:'wo3'},{c:'学',py:'xue2'},{c:'汉',py:'han4'},{c:'语',py:'yu3'}]},diagnosis_available:true};
+test('详情参考读音、误读和增读使用调号，原始数据保持不变',()=>{
+ const record={question_snapshot:{display_text:'我喜欢学习中文。',tokens:[
+  {c:'我',py:'wo3'},{c:'喜',py:'xi3'},{c:'欢',py:'huan1'},
+  {c:'学',py:'xue2'},{c:'习',py:'xi2'},{c:'中',py:'zhong1'},{c:'文',py:'wen2'}
+ ]},diagnosis_available:true,diagnosis:{status:'completed',errors:[
+  {type:'tone',char_index:1,expected:'xi3',actual:'xi1'},
+  {type:'substitution',char_index:3,expected:'xue2',actual:'shue2'},
+  {type:'omission',char_index:5,expected:'zhong1',actual:null},
+  {type:'insertion',boundary_index:7,expected:null,actual:'a5'}
+ ]}};
+ const original=JSON.stringify(record);
+ const result=detailView(record);
+ assert.equal(result.invalid,false);
+ for(const reading of ['wǒ','xǐ','huān','xué','xí','zhōng','wén']) {
+  assert.ok(result.html.includes(`<small>${reading}</small>`),reading);
+ }
+ assert.ok(result.html.includes('声调偏误<br>xī'));
+ assert.ok(result.html.includes('声韵母误读<br>shué'));
+ assert.ok(result.html.includes('漏读<br>未读出'));
+ assert.ok(result.html.includes('增读<br>a</span>'));
+ assert.ok(!/\b(?:wo3|xi3|xi1|shue2|a5)\b/u.test(result.html));
+ assert.equal(JSON.stringify(record),original);
+});
+test('详情优先使用展示拼音，并在非完成状态显示带调参考读音',()=>{
+ const record={...fixture,question_snapshot:{display_text:'女。',tokens:[{c:'女',py:'nv3',display_py:'nü4'}]}};
+ for(const status of ['pending','processing','failed','completed']) {
+  const result=detailView({...record,diagnosis:{status,errors:[]}});
+  assert.ok(result.html.includes('<small>nǜ</small>'));
+  assert.ok(!result.html.includes('nǚ'));
+ }
+});
 test('标点、多类偏误与首中尾增读',()=>{
  const result=detailView({...fixture,diagnosis:{status:'completed',errors:[
   ...[0,2,4].map(boundary_index=>({type:'insertion',boundary_index,actual:'a1'})),

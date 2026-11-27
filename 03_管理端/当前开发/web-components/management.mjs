@@ -1,6 +1,8 @@
 /* 第一周样式兼容组件；接口齐全后接入统一 Web，不改变现有演示入口。
  * 详情展示责任：周佳怡。统计与导出责任：王阳。本次为自动化协助补齐，待复核。
  */
+import {displayPinyin} from '../web/pinyin.mjs';
+
 export const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, c =>
   ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const isHan = c => /[\u3400-\u9fff\u{20000}-\u{323af}]/u.test(c);
@@ -25,12 +27,12 @@ export function detailView(record) {
   const safeErrors = invalid ? [] : errors;
   let index=0, html='';
   const inserts = boundary => safeErrors.filter(e=>e.type==='insertion' && e.boundary_index===boundary)
-    .map(e=>`<span class="insertion">增读<br>${escapeHtml(e.actual)}</span>`).join('');
+    .map(e=>`<span class="insertion">增读<br>${escapeHtml(displayPinyin(e.actual))}</span>`).join('');
   for (const char of text) {
     if (!isHan(char)) {html += `<span class="punctuation">${escapeHtml(char)}</span>`; continue;}
     html += inserts(index);
     const found = safeErrors.filter(e=>e.type!=='insertion' && e.char_index===index);
-    html += `<div class="char ${found[0]?.type??''}"><small>${escapeHtml(tokens[index]?.display_py??tokens[index]?.py)}</small><b>${escapeHtml(char)}</b>${found.map(e=>`<small>${names[e.type]}<br>${escapeHtml(e.actual??'未读出')}</small>`).join('')}</div>`;
+    html += `<div class="char ${found[0]?.type??''}"><small>${escapeHtml(displayPinyin(tokens[index]?.display_py??tokens[index]?.py))}</small><b>${escapeHtml(char)}</b>${found.map(e=>`<small>${names[e.type]}<br>${escapeHtml(e.actual==null?'未读出':displayPinyin(e.actual))}</small>`).join('')}</div>`;
     index++;
   }
   html += inserts(index);
