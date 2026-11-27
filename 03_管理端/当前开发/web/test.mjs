@@ -18,6 +18,12 @@ test('新增表单必须包含可提交的九个等级，筛选额外包含全�
 test('展示带调拼音，同时兼容轻声、ü、iu、ui 和已有带调值', () => {
   for (const [input, expected] of Object.entries({
       wo3: 'wǒ',
+      xi1: 'xī',
+      xi2: 'xí',
+      xi3: 'xǐ',
+      xi4: 'xì',
+      a5: 'a',
+      ma0: 'ma',
       ma5: 'ma',
       nv3: 'nǚ',
       'lu:4': 'lǜ',
@@ -25,6 +31,11 @@ test('展示带调拼音，同时兼容轻声、ü、iu、ui 和已有带调值'
       gui4: 'guì',
       ou3: 'ǒu',
       xue2: 'xué',
+      shue2: 'shué',
+      zhong1: 'zhōng',
+      wen2: 'wén',
+      '<img onerror=x>': '<img onerror=x>',
+      xi6: 'xi6',
       'nǐ': 'nǐ'
     })) assert.equal(displayPinyin(input), expected);
 });

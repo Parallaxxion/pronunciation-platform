@@ -3,5 +3,7 @@
 *.md text eol=lf
 *.json text eol=lf
 *.jsonl text eol=lf
+# These fixtures are verified byte-for-byte against baseline.sha256.json.
+05_相关材料/统一前端/baseline/** text eol=lf
 *.wav binary
 *.zip binary
